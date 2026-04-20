@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+  <!-- PWA meta -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="eVesh">
+  <meta name="application-name" content="eVesh">
+  <meta name="msapplication-TileColor" content="#1B8A5A">
+  <meta name="theme-color" content="#1B8A5A">
+
+  <!-- SEO / OG -->
+  <meta name="description" content="eVesh — Family wealth management for Indian investors">
+  <meta property="og:title" content="eVesh Wealth Manager">
+  <meta property="og:description" content="Track, analyse, and grow your family portfolio">
+  <meta property="og:type" content="website">
+
+  <link rel="manifest" href="manifest.json">
+
+  <!-- Apple touch icons -->
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="icons/Icon-192.png">
+
+  <title>eVesh Wealth Manager</title>
+
+  <style>
+    /* Initial loading screen — shown before Flutter renders */
+    body {
+      margin: 0;
+      background-color: #0A1628;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    }
+    #loading {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+    #loading .logo {
+      color: #1B8A5A;
+      font-size: 32px;
+      font-weight: 700;
+      letter-spacing: -1px;
+    }
+    #loading .logo span { color: #FFFFFF; }
+    #loading .spinner {
+      width: 36px;
+      height: 36px;
+      border: 3px solid rgba(27, 138, 90, 0.2);
+      border-top-color: #1B8A5A;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+</head>
+<body>
+  <div id="loading">
+    <div class="logo">e<span>Vesh</span></div>
+    <div class="spinner"></div>
+  </div>
+
+  <!-- Firebase SDK (for FCM push) -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-messaging-compat.js"></script>
+
+  <script>
+    // Capture PWA install prompt for custom banner
+    window._pwaInstallPrompt = null;
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      window._pwaInstallPrompt = e;
+      // Flutter will read this via JS interop in pwa_service.dart
+      if (window._onInstallPromptReady) window._onInstallPromptReady();
+    });
+
+    // Hide loading screen once Flutter is ready
+    window.addEventListener('flutter-first-frame', () => {
+      const loading = document.getElementById('loading');
+      if (loading) loading.style.display = 'none';
+    });
+  </script>
+
+  <script src="flutter_bootstrap.js" async></script>
+</body>
+</html>

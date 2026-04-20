@@ -1,0 +1,71 @@
+# ── Dart / Flutter ───────────────────────────────────────────────────────────
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+build/
+pubspec.lock.bak
+
+# Flutter/Dart generated
+*.g.dart
+*.freezed.dart
+!**/*.g.dart
+!**/*.freezed.dart
+
+# ── IDE / Editor ─────────────────────────────────────────────────────────────
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
+.metadata
+
+# ── OS ───────────────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+
+# ── Claude / Agent state ─────────────────────────────────────────────────────
+# launch.json contains local absolute paths and dev-only SUPABASE_ANON_KEY
+.claude/launch.json
+.superpowers/
+
+# ── Netlify ──────────────────────────────────────────────────────────────────
+.netlify/
+
+# ── Node (Netlify Functions) ────────────────────────────────────────────────
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ── Supabase CLI ─────────────────────────────────────────────────────────────
+supabase/.temp/
+supabase/.branches/
+supabase/.env
+
+# ── Secrets / Env ────────────────────────────────────────────────────────────
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+secrets.json
+service-account*.json
+firebase-adminsdk*.json
+google-services.json
+GoogleService-Info.plist
+
+# ── Build output / logs ──────────────────────────────────────────────────────
+*.log
+coverage/
+*.lcov
+.firebase/
+
+# ── User / personal data (never commit portfolio PDFs, CAS reports, etc) ─────
+*.pdf
+!docs/**/*.pdf
+cas_detailed_report*
+*_holdings.csv
+*_holdings.xlsx

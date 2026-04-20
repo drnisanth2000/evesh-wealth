@@ -1,0 +1,21 @@
+{
+  "name": "amfi-scraper",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "scrape": "tsx scrape.ts",
+    "gen:sql": "tsx gen_sql.ts",
+    "gen:dart": "tsx gen_dart.ts",
+    "all": "npm run scrape && npm run gen:sql && npm run gen:dart"
+  },
+  "dependencies": {
+    "playwright": "^1.46.0",
+    "cheerio": "^1.0.0"
+  },
+  "devDependencies": {
+    "tsx": "^4.19.0",
+    "typescript": "^5.5.0",
+    "@types/node": "^20.0.0"
+  }
+}

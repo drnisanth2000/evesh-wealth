@@ -1,0 +1,53 @@
+[build]
+  command = "flutter build web --release --dart-define=SUPABASE_URL=$SUPABASE_URL --dart-define=SUPABASE_ANON_KEY=$SUPABASE_ANON_KEY --dart-define=FIREBASE_API_KEY=$FIREBASE_API_KEY --dart-define=FIREBASE_PROJECT_ID=$FIREBASE_PROJECT_ID --dart-define=FIREBASE_MESSAGING_SENDER_ID=$FIREBASE_MESSAGING_SENDER_ID --dart-define=FIREBASE_APP_ID=$FIREBASE_APP_ID --dart-define=FIREBASE_VAPID_KEY=$FIREBASE_VAPID_KEY"
+  publish = "build/web"
+
+[build.environment]
+  FLUTTER_VERSION = "3.41.5"
+
+# ─── SPA routing ─────────────────────────────────────────────────────────────
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# ─── Security headers ────────────────────────────────────────────────────────
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+    X-XSS-Protection = "1; mode=block"
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' 'wasm-unsafe-eval' https://www.gstatic.com https://www.googleapis.com https://firebase.googleapis.com; script-src-elem 'self' 'unsafe-inline' https://www.gstatic.com https://www.googleapis.com https://firebase.googleapis.com; connect-src 'self' https://*.supabase.co wss://*.supabase.co https://www.gstatic.com https://fonts.gstatic.com https://mf.captnemo.in https://api.mfapi.in https://portal.amfiindia.com https://fcm.googleapis.com https://api.kuvera.in https://firebase.googleapis.com; img-src 'self' data: blob: https:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; style-src-elem 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; worker-src 'self' blob:; manifest-src 'self';"
+
+# ─── Cache Flutter service worker (never cache — must check for updates) ─────
+[[headers]]
+  for = "/flutter_service_worker.js"
+  [headers.values]
+    Cache-Control = "no-cache, no-store, must-revalidate"
+
+# ─── Cache CanvasKit WASM aggressively ────────────────────────────────────────
+[[headers]]
+  for = "/canvaskit/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.wasm"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# ─── Netlify Functions (Razorpay webhook) ────────────────────────────────────
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+
+# ─── Environment contexts ─────────────────────────────────────────────────────
+[context.production]
+  environment = { APP_ENV = "production" }
+
+[context.deploy-preview]
+  environment = { APP_ENV = "staging" }

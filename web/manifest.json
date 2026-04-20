@@ -1,0 +1,41 @@
+{
+  "name": "eVesh Wealth Manager",
+  "short_name": "eVesh",
+  "description": "Family wealth management for Indian investors — track, analyse, and grow",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0A1628",
+  "theme_color": "#1B8A5A",
+  "orientation": "any",
+  "scope": "/",
+  "lang": "en-IN",
+  "dir": "ltr",
+  "categories": ["finance", "productivity"],
+  "icons": [
+    {
+      "src": "icons/Icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "icons/Icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable any"
+    }
+  ],
+  "screenshots": [],
+  "shortcuts": [
+    {
+      "name": "Dashboard",
+      "url": "/dashboard",
+      "description": "View your portfolio dashboard"
+    },
+    {
+      "name": "Add Transaction",
+      "url": "/transactions/add",
+      "description": "Add a new transaction"
+    }
+  ]
+}
