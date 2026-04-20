@@ -8,6 +8,9 @@ should be readable under stress — clear steps, exact commands, no fluff.
 ### Incident response
 - [Recovering from a Stuck DELETE / Connection Pool Exhaustion](stuck-delete-recovery.md)
 
+### Routine operations
+- [Secrets Inventory & Rotation](secrets-and-rotation.md) — where every secret lives and how to rotate it
+
 ### To be written
 - `deploy-rollback.md` — rolling back a bad Netlify deploy
 - `supabase-quota-emergency.md` — what to do when DB hits 90% of quota
