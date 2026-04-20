@@ -2,6 +2,27 @@
 # Build Flutter web with Netlify env vars and deploy to production
 set -e
 
+# ── Git cleanliness check ────────────────────────────────────────────────────
+# Warn if the working tree has uncommitted changes. The remote (github) is the
+# backup of record; deploying dirty = what's live ≠ what's in git.
+if git rev-parse --git-dir >/dev/null 2>&1; then
+  DIRTY=$(git status --porcelain)
+  UNPUSHED=$(git log @{u}..HEAD --oneline 2>/dev/null || echo "")
+  if [ -n "$DIRTY" ] || [ -n "$UNPUSHED" ]; then
+    echo ""
+    echo "⚠️  Git working tree is not clean:"
+    [ -n "$DIRTY" ] && echo "   Uncommitted changes:" && git status --short | sed 's/^/      /'
+    [ -n "$UNPUSHED" ] && echo "   Unpushed commits:" && echo "$UNPUSHED" | sed 's/^/      /'
+    echo ""
+    read -p "Deploy anyway? The remote won't match what's live. [y/N] " -n 1 -r
+    echo ""
+    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+      echo "Aborted. Commit + push first, then re-run ./build_and_deploy.sh"
+      exit 1
+    fi
+  fi
+fi
+
 echo "Fetching env vars from Netlify..."
 SUPABASE_URL=$(netlify env:get SUPABASE_URL 2>/dev/null)
 SUPABASE_ANON_KEY=$(netlify env:get SUPABASE_ANON_KEY 2>/dev/null)
