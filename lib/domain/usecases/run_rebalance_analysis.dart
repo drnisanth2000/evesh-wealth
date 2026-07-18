@@ -172,9 +172,13 @@ class RebalanceAnalyzer {
 
       if (driftPct.abs() > target.driftThreshold) rebalanceNeeded = true;
 
-      final action = driftPct > 0 ? RebalanceAction.reduce
-          : driftPct < -1 ? RebalanceAction.add
-          : RebalanceAction.hold;
+      // Gate on the user's drift threshold symmetrically — otherwise any
+      // sub-threshold drift (even 0.01%) surfaces a sell/buy suggestion.
+      final action = driftPct > target.driftThreshold
+          ? RebalanceAction.reduce
+          : driftPct < -target.driftThreshold
+              ? RebalanceAction.add
+              : RebalanceAction.hold;
 
       final actionAmount = (targetPct - currentPct).abs() * totalValue / 100;
 

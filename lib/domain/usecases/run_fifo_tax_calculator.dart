@@ -398,11 +398,13 @@ class FifoTaxCalculator {
 
   /// Determine if a holding qualifies for LTCG
   static bool _isLtcg(int holdingDays, TaxCategory category) {
+    // Holding period must EXCEED the threshold (Sec 2(42A): "more than
+    // 12/24 months"), so a sale exactly at the threshold is still STCG.
     if (category.isEquityType) {
-      return holdingDays >= AppConstants.equityLtcgHoldingDays;
+      return holdingDays > AppConstants.equityLtcgHoldingDays;
     }
     if (category.isGoldFofType) {
-      return holdingDays >= AppConstants.goldFofLtcgHoldingDays;
+      return holdingDays > AppConstants.goldFofLtcgHoldingDays;
     }
     // Debt: post-Apr-2023 = always slab rate, no LTCG benefit
     // Pre-Apr-2023 debt with >36 months would get indexation benefit,

@@ -16,7 +16,7 @@ SELECT cron.schedule(
   '30 16 * * 1-5',
   $$
     SELECT net.http_post(
-      url := 'https://YOUR_PROJECT_REF.supabase.co/functions/v1/fetch-nav-batch',
+      url := 'https://bewtjsjhdtwhrsshmigm.supabase.co/functions/v1/fetch-nav-batch',
       headers := '{"Content-Type": "application/json", "Authorization": "Bearer YOUR_SERVICE_ROLE_KEY"}'::jsonb,
       body := '{}'::jsonb
     );
@@ -32,7 +32,7 @@ SELECT cron.schedule(
   '30 13 * * 1-5',
   $$
     SELECT net.http_post(
-      url := 'https://YOUR_PROJECT_REF.supabase.co/functions/v1/send-alert-email',
+      url := 'https://bewtjsjhdtwhrsshmigm.supabase.co/functions/v1/send-alert-email',
       headers := '{"Content-Type": "application/json", "Authorization": "Bearer YOUR_SERVICE_ROLE_KEY"}'::jsonb,
       body := '{}'::jsonb
     );
@@ -48,7 +48,7 @@ SELECT cron.schedule(
   '30 3 1 1,4,7,10 *',
   $$
     SELECT net.http_post(
-      url := 'https://YOUR_PROJECT_REF.supabase.co/functions/v1/refresh-fund-metadata',
+      url := 'https://bewtjsjhdtwhrsshmigm.supabase.co/functions/v1/refresh-fund-metadata',
       headers := '{"Content-Type": "application/json", "Authorization": "Bearer YOUR_SERVICE_ROLE_KEY"}'::jsonb,
       body := '{}'::jsonb
     );
@@ -78,7 +78,7 @@ SELECT cron.schedule(
   '30 0 * * 0',
   $$
     SELECT net.http_post(
-      url := 'https://YOUR_PROJECT_REF.supabase.co/functions/v1/fetch-nav-batch',
+      url := 'https://bewtjsjhdtwhrsshmigm.supabase.co/functions/v1/fetch-nav-batch',
       headers := '{"Content-Type": "application/json", "Authorization": "Bearer YOUR_SERVICE_ROLE_KEY"}'::jsonb,
       body := '{"mode": "history"}'::jsonb
     );

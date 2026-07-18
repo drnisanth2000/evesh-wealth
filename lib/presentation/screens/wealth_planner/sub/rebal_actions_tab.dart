@@ -39,14 +39,15 @@ AssetClass _labelToAssetClass(String label) {
 /// Stable hash for a suggestion, used for dismissal + execution de-dup.
 /// Formerly lived in `rebal_suggested_tab.dart`; moved here as part of the
 /// v3 rebalance topology switch (Phase 7).
+/// driftPct is deliberately NOT part of the key: it moves with daily NAV,
+/// so including it made a dismissed suggestion resurface as "new" whenever
+/// the drift crossed a rounding boundary (5.4% → 5.6% ⇒ different hash).
 String suggestionHashOf({
   required String? memberId,
   required int amfiCode,
   required String action,
-  required double driftPct,
 }) {
-  final rounded = driftPct.roundToDouble().toInt();
-  final raw = '${memberId ?? 'all'}|$amfiCode|$action|$rounded';
+  final raw = '${memberId ?? 'all'}|$amfiCode|$action';
   return raw.hashCode.toUnsigned(32).toRadixString(16);
 }
 
@@ -234,12 +235,11 @@ class _RebalActionsTabState extends ConsumerState<RebalActionsTab> {
                 memberId: memberId,
                 amfiCode: s.amfiCode,
                 action: s.suggestedAction.name,
-                driftPct: s.driftPct,
               ));
             }).toList();
 
             // Merge — user-driven wins on amfiCode collision. Then drop
-            // dismissed entries (user-driven rehashes with driftPct=0).
+            // dismissed entries.
             final byAmfi = <int, FundRebalanceSuggestion>{};
             for (final s in driftSells) {
               byAmfi[s.amfiCode] = s;
@@ -252,7 +252,6 @@ class _RebalActionsTabState extends ConsumerState<RebalActionsTab> {
                 memberId: memberId,
                 amfiCode: s.amfiCode,
                 action: s.suggestedAction.name,
-                driftPct: s.driftPct,
               ));
             }).toList()
               // Biggest sells first.
@@ -531,7 +530,6 @@ class _ReallocationMoveCard extends ConsumerWidget {
         memberId: memberId,
         amfiCode: suggestion.amfiCode,
         action: suggestion.suggestedAction.name,
-        driftPct: suggestion.driftPct,
       );
 
   @override

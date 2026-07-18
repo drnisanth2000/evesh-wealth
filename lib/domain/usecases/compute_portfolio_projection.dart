@@ -1,6 +1,8 @@
 // lib/domain/usecases/compute_portfolio_projection.dart
 
 import 'dart:math' as math;
+
+import '../../core/constants/app_constants.dart';
 import '../models/projection_models.dart';
 
 /// Computes multi-scenario portfolio projections, waterfall breakdown, and benchmarks.
@@ -135,15 +137,18 @@ class PortfolioProjectionCalculator {
     final equityGain = returnsEarned * (equityPct / 100);
     final debtGain = returnsEarned * (debtPct / 100);
 
-    // Equity LTCG: 12.5% on gains above ₹1.25L/year exemption
+    // Equity LTCG on gains above the per-FY exemption (rates from AppConstants)
     final annualEquityGain = equityGain / input.horizonYears;
-    final taxableEquityGainPerYear = math.max(annualEquityGain - 125000, 0.0);
-    final equityTax = taxableEquityGainPerYear * 0.125 * input.horizonYears;
+    final taxableEquityGainPerYear = math.max(
+        annualEquityGain - AppConstants.ltcgExemptionPerPersonPerFy, 0.0);
+    final equityTax =
+        taxableEquityGainPerYear * AppConstants.equityLtcgRate * input.horizonYears;
 
     // Debt: slab rate on all gains
     final debtTax = debtGain * (input.taxSlabPct / 100);
 
-    final totalTax = (equityTax + debtTax) * 1.04; // + 4% cess
+    final totalTax =
+        (equityTax + debtTax) * (1 + AppConstants.healthEducationCess);
     running -= totalTax;
     steps.add(WaterfallStep(
       label: 'Estimated Tax',

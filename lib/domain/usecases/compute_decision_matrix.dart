@@ -1,5 +1,7 @@
 import 'dart:math' as math;
 
+import '../../core/constants/app_constants.dart';
+
 import '../models/screener_models.dart';
 
 // ---------------------------------------------------------------------------
@@ -50,10 +52,12 @@ class _InstrumentParams {
 class DecisionMatrixCalculator {
   DecisionMatrixCalculator._();
 
-  static const double _cessRate = 0.04;
-  static const double _ltcgRate = 0.125; // 12.5%
-  static const double _stcgRate = 0.20; // 20%
-  static const double _ltcgExemptAnnual = 125000.0; // ₹1.25L/year
+  // Single source of truth for rates is AppConstants — do not hardcode here.
+  static const double _cessRate = AppConstants.healthEducationCess;
+  static const double _ltcgRate = AppConstants.equityLtcgRate;
+  static const double _stcgRate = AppConstants.equityStcgRate;
+  static const double _ltcgExemptAnnual =
+      AppConstants.ltcgExemptionPerPersonPerFy;
 
   // ---------------------------------------------------------------------------
   // Instrument catalogue
