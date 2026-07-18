@@ -66,8 +66,8 @@ class AdminScreen extends ConsumerWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Icon(Icons.error_outline,
-                  color: AppColors.loss, size: 48),
+              Icon(Icons.error_outline,
+                  color: context.palette.loss, size: 48),
               const SizedBox(height: 8),
               Text('Error: $e',
                   style: TextStyle(color: context.palette.textTertiary)),
@@ -102,7 +102,7 @@ class AdminScreen extends ConsumerWidget {
                   KpiCard(
                       label: 'New This Week',
                       value: m.newUsersThisWeek.toString(),
-                      valueColor: AppColors.gain),
+                      valueColor: context.palette.gain),
                 ],
               ),
               const SizedBox(height: 20),
@@ -121,13 +121,13 @@ class AdminScreen extends ConsumerWidget {
                   KpiCard(
                     label: 'MRR',
                     value: m.mrr.toINRCompact(),
-                    valueColor: AppColors.gain,
+                    valueColor: context.palette.gain,
                     tooltip: 'Monthly Recurring Revenue from active subscriptions',
                   ),
                   KpiCard(
                     label: 'ARR (est.)',
                     value: (m.mrr * 12).toINRCompact(),
-                    valueColor: AppColors.gain,
+                    valueColor: context.palette.gain,
                   ),
                 ],
               ),
@@ -162,7 +162,7 @@ class _TierBreakdown extends StatelessWidget {
     final colors = {
       'free': context.palette.textTertiary,
       'individual': AppColors.primary,
-      'family': AppColors.gain,
+      'family': context.palette.gain,
     };
 
     return Container(

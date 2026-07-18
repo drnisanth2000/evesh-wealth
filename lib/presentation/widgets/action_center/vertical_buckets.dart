@@ -149,9 +149,9 @@ class _BucketColumn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final statusColor = switch (bucket.status) {
-      'overweight' => AppColors.loss,
+      'overweight' => context.palette.loss,
       'underweight' => AppColors.warning,
-      _ => AppColors.gain,
+      _ => context.palette.gain,
     };
 
     return Column(
@@ -163,17 +163,17 @@ class _BucketColumn extends StatelessWidget {
             margin: const EdgeInsets.only(bottom: 4),
             padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
             decoration: BoxDecoration(
-              color: AppColors.loss.withValues(alpha: 0.15),
+              color: context.palette.loss.withValues(alpha: 0.15),
               borderRadius: BorderRadius.circular(4),
               border: Border.all(
-                color: AppColors.loss.withValues(alpha: 0.5),
+                color: context.palette.loss.withValues(alpha: 0.5),
                 width: 0.5,
               ),
             ),
             child: Text(
               '+${bucket.overflowPct.toStringAsFixed(1)}%',
-              style: const TextStyle(
-                color: AppColors.loss,
+              style: TextStyle(
+                color: context.palette.loss,
                 fontSize: 10,
                 fontWeight: FontWeight.w600,
               ),

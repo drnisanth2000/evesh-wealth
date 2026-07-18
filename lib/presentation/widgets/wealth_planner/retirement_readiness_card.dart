@@ -18,11 +18,11 @@ class RetirementReadinessCard extends StatelessWidget {
   Color _statusColor(BuildContext context, String status) {
     switch (status) {
       case 'On Track':
-        return AppColors.gain;
+        return context.palette.gain;
       case 'Needs Attention':
         return AppColors.warning;
       case 'Behind':
-        return AppColors.loss;
+        return context.palette.loss;
       case 'Critical':
         return AppColors.alertUrgent;
       default:
@@ -140,8 +140,8 @@ class RetirementReadinessCard extends StatelessWidget {
                           ? readiness.gap.toINR(compact: true)
                           : '—',
                       valueColor: readiness.gap > 0
-                          ? AppColors.loss
-                          : AppColors.gain,
+                          ? context.palette.loss
+                          : context.palette.gain,
                     ),
                     _MetricItem(
                       label: 'SIP Needed',

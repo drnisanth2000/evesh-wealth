@@ -646,7 +646,7 @@ class _UploadTaxScreenState extends ConsumerState<UploadTaxScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('Failed to parse tax file: $e'),
-          backgroundColor: AppColors.loss,
+          backgroundColor: context.palette.loss,
         ),
       );
     }
@@ -1002,7 +1002,7 @@ class _UploadTaxScreenState extends ConsumerState<UploadTaxScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('Failed to parse MF Central tax file: $e'),
-          backgroundColor: AppColors.loss,
+          backgroundColor: context.palette.loss,
         ),
       );
     }
@@ -1090,7 +1090,7 @@ class _UploadTaxScreenState extends ConsumerState<UploadTaxScreen> {
         SnackBar(
           content: Text(
               'AIS imported: $stockSales stock sales, $mfSales MF sales for ${data['financial_year']}'),
-          backgroundColor: AppColors.gain,
+          backgroundColor: context.palette.gain,
           duration: const Duration(seconds: 5),
         ),
       );
@@ -1103,7 +1103,7 @@ class _UploadTaxScreenState extends ConsumerState<UploadTaxScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('Failed to parse AIS: $e'),
-          backgroundColor: AppColors.loss,
+          backgroundColor: context.palette.loss,
         ),
       );
     }
@@ -1168,7 +1168,7 @@ class _UploadTaxScreenState extends ConsumerState<UploadTaxScreen> {
       SnackBar(
         content: Text(
             '${data.transactions.length} tax lot matches, $schemeCount schemes imported for ${data.financialYear}'),
-        backgroundColor: AppColors.gain,
+        backgroundColor: context.palette.gain,
         duration: const Duration(seconds: 4),
       ),
     );
@@ -1179,9 +1179,9 @@ class _UploadTaxScreenState extends ConsumerState<UploadTaxScreen> {
     final name = _nameCtrl.text.trim();
     if (pan == null || name.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
+        SnackBar(
           content: Text('Name is required'),
-          backgroundColor: AppColors.loss,
+          backgroundColor: context.palette.loss,
         ),
       );
       return;
@@ -1235,7 +1235,7 @@ class _UploadTaxScreenState extends ConsumerState<UploadTaxScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('$name added as family member'),
-          backgroundColor: AppColors.gain,
+          backgroundColor: context.palette.gain,
         ),
       );
     } catch (e) {
@@ -1244,7 +1244,7 @@ class _UploadTaxScreenState extends ConsumerState<UploadTaxScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('Failed to add member: $e'),
-          backgroundColor: AppColors.loss,
+          backgroundColor: context.palette.loss,
         ),
       );
     }
@@ -1277,7 +1277,7 @@ class _UploadTaxScreenState extends ConsumerState<UploadTaxScreen> {
           ),
           TextButton(
             onPressed: () => Navigator.of(ctx).pop(true),
-            style: TextButton.styleFrom(foregroundColor: AppColors.loss),
+            style: TextButton.styleFrom(foregroundColor: context.palette.loss),
             child: const Text('Delete'),
           ),
         ],
@@ -1310,7 +1310,7 @@ class _UploadTaxScreenState extends ConsumerState<UploadTaxScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('Tax data for $memberName cleared'),
-          backgroundColor: AppColors.gain,
+          backgroundColor: context.palette.gain,
         ),
       );
     } catch (e) {
@@ -1318,7 +1318,7 @@ class _UploadTaxScreenState extends ConsumerState<UploadTaxScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('Failed to clear: $e'),
-          backgroundColor: AppColors.loss,
+          backgroundColor: context.palette.loss,
         ),
       );
     }
@@ -1587,18 +1587,18 @@ class _UploadTaxScreenState extends ConsumerState<UploadTaxScreen> {
               Container(
                 padding: const EdgeInsets.all(14),
                 decoration: BoxDecoration(
-                  color: AppColors.gain.withOpacity(0.08),
+                  color: context.palette.gain.withOpacity(0.08),
                   borderRadius: BorderRadius.circular(12),
                   border: Border.all(
-                      color: AppColors.gain.withOpacity(0.3)),
+                      color: context.palette.gain.withOpacity(0.3)),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Row(
+                    Row(
                       children: [
                         Icon(Icons.shield_outlined,
-                            size: 18, color: AppColors.gain),
+                            size: 18, color: context.palette.gain),
                         SizedBox(width: 8),
                         Expanded(
                           child: Text(
@@ -1606,7 +1606,7 @@ class _UploadTaxScreenState extends ConsumerState<UploadTaxScreen> {
                             style: TextStyle(
                               fontWeight: FontWeight.w600,
                               fontSize: 13,
-                              color: AppColors.gain,
+                              color: context.palette.gain,
                             ),
                           ),
                         ),
@@ -1710,15 +1710,15 @@ class _UploadTaxScreenState extends ConsumerState<UploadTaxScreen> {
               Container(
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                  color: AppColors.loss.withOpacity(0.08),
+                  color: context.palette.loss.withOpacity(0.08),
                   borderRadius: BorderRadius.circular(12),
                   border: Border.all(
-                      color: AppColors.loss.withOpacity(0.3)),
+                      color: context.palette.loss.withOpacity(0.3)),
                 ),
                 child: Text(
                   _error!,
-                  style: const TextStyle(
-                      color: AppColors.loss,
+                  style: TextStyle(
+                      color: context.palette.loss,
                       fontSize: 13,
                       height: 1.5),
                 ),
@@ -1736,9 +1736,9 @@ class _UploadTaxScreenState extends ConsumerState<UploadTaxScreen> {
                     : 'Clear Tax Data',
               ),
               style: OutlinedButton.styleFrom(
-                foregroundColor: AppColors.loss,
+                foregroundColor: context.palette.loss,
                 side: BorderSide(
-                    color: AppColors.loss.withOpacity(0.4)),
+                    color: context.palette.loss.withOpacity(0.4)),
                 minimumSize: const Size.fromHeight(44),
               ),
             ),
@@ -1876,13 +1876,13 @@ class _MatchedBanner extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
-        color: AppColors.gain.withOpacity(0.1),
+        color: context.palette.gain.withOpacity(0.1),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: AppColors.gain.withOpacity(0.4)),
+        border: Border.all(color: context.palette.gain.withOpacity(0.4)),
       ),
       child: Row(
         children: [
-          const Icon(Icons.check_circle, color: AppColors.gain, size: 22),
+          Icon(Icons.check_circle, color: context.palette.gain, size: 22),
           const SizedBox(width: 12),
           Expanded(
             child: Column(
@@ -2154,13 +2154,13 @@ class _CamsTaxResultCard extends StatelessWidget {
                   'Short Term CG',
                   '\u20b9${data.equityStcg.toStringAsFixed(2)}',
                   color: data.equityStcg > 0
-                      ? AppColors.gain
+                      ? context.palette.gain
                       : context.palette.textSecondary),
               _Row(
                   'Long Term CG (w/o indexation)',
                   '\u20b9${data.equityLtcgNoIdx.toStringAsFixed(2)}',
                   color: data.equityLtcgNoIdx > 0
-                      ? AppColors.gain
+                      ? context.palette.gain
                       : context.palette.textSecondary),
               if (data.equityLtcgWithIdx > 0)
                 _Row('Long Term CG (with indexation)',
@@ -2179,7 +2179,7 @@ class _CamsTaxResultCard extends StatelessWidget {
                     'Short Term CG',
                     '\u20b9${data.nonEquityStcg.toStringAsFixed(2)}',
                     color: data.nonEquityStcg > 0
-                        ? AppColors.gain
+                        ? context.palette.gain
                         : context.palette.textSecondary),
                 if (data.nonEquityLtcgNoIdx > 0)
                   _Row('Long Term CG',
@@ -2190,8 +2190,8 @@ class _CamsTaxResultCard extends StatelessWidget {
                   'Total Realized Gain',
                   '\u20b9${data.totalGain.toStringAsFixed(2)}',
                   color: data.totalGain > 0
-                      ? AppColors.gain
-                      : AppColors.loss),
+                      ? context.palette.gain
+                      : context.palette.loss),
             ],
           ),
         ),
@@ -2245,16 +2245,16 @@ class _CamsTaxResultCard extends StatelessWidget {
                                   style: TextStyle(
                                       fontSize: 10,
                                       color: stcg > 0
-                                          ? AppColors.gain
-                                          : AppColors.loss)),
+                                          ? context.palette.gain
+                                          : context.palette.loss)),
                             if (ltcg != 0)
                               Text(
                                   'LTCG: \u20b9${ltcg.toStringAsFixed(0)} ',
                                   style: TextStyle(
                                       fontSize: 10,
                                       color: ltcg > 0
-                                          ? AppColors.gain
-                                          : AppColors.loss)),
+                                          ? context.palette.gain
+                                          : context.palette.loss)),
                             const Spacer(),
                             Text(
                               'Total: \u20b9${total.toStringAsFixed(0)}',
@@ -2262,8 +2262,8 @@ class _CamsTaxResultCard extends StatelessWidget {
                                 fontSize: 11,
                                 fontWeight: FontWeight.w600,
                                 color: total > 0
-                                    ? AppColors.gain
-                                    : AppColors.loss,
+                                    ? context.palette.gain
+                                    : context.palette.loss,
                               ),
                             ),
                           ],
@@ -2333,24 +2333,24 @@ class _AisResultCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: AppColors.gain.withOpacity(0.08),
+        color: context.palette.gain.withOpacity(0.08),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: AppColors.gain.withOpacity(0.3)),
+        border: Border.all(color: context.palette.gain.withOpacity(0.3)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
-              const Icon(Icons.shield_outlined, size: 18, color: AppColors.gain),
+              Icon(Icons.shield_outlined, size: 18, color: context.palette.gain),
               const SizedBox(width: 8),
               Expanded(
                 child: Text(
                   'AIS Imported — ${data['financial_year'] ?? ''}',
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontWeight: FontWeight.w600,
                     fontSize: 14,
-                    color: AppColors.gain,
+                    color: context.palette.gain,
                   ),
                 ),
               ),
@@ -2370,23 +2370,23 @@ class _AisResultCard extends StatelessWidget {
           if ((stockGains['stcg'] as num?) != null)
             _row(context, 'Stock STCG', '\u20b9${_fmt(stockGains['stcg'])}',
                 color: (stockGains['stcg'] as num) >= 0
-                    ? AppColors.gain
-                    : AppColors.loss),
+                    ? context.palette.gain
+                    : context.palette.loss),
           if ((stockGains['ltcg'] as num?) != null)
             _row(context, 'Stock LTCG', '\u20b9${_fmt(stockGains['ltcg'])}',
                 color: (stockGains['ltcg'] as num) >= 0
-                    ? AppColors.gain
-                    : AppColors.loss),
+                    ? context.palette.gain
+                    : context.palette.loss),
           if ((eqMfGains['stcg'] as num?) != null)
             _row(context, 'Equity MF STCG', '\u20b9${_fmt(eqMfGains['stcg'])}',
                 color: (eqMfGains['stcg'] as num) >= 0
-                    ? AppColors.gain
-                    : AppColors.loss),
+                    ? context.palette.gain
+                    : context.palette.loss),
           if ((eqMfGains['ltcg'] as num?) != null)
             _row(context, 'Equity MF LTCG', '\u20b9${_fmt(eqMfGains['ltcg'])}',
                 color: (eqMfGains['ltcg'] as num) >= 0
-                    ? AppColors.gain
-                    : AppColors.loss),
+                    ? context.palette.gain
+                    : context.palette.loss),
           if ((debtMfGains['stcg'] as num?) != null)
             _row(context, 'Debt MF STCG', '\u20b9${_fmt(debtMfGains['stcg'])}'),
           if ((debtMfGains['ltcg'] as num?) != null)
@@ -2394,7 +2394,7 @@ class _AisResultCard extends StatelessWidget {
 
           const Divider(height: 16),
           _row(context, 'Total Gain', '\u20b9${_fmt(totalGain)}',
-              color: totalGain >= 0 ? AppColors.gain : AppColors.loss),
+              color: totalGain >= 0 ? context.palette.gain : context.palette.loss),
         ],
       ),
     );

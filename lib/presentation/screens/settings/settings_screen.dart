@@ -209,11 +209,11 @@ class SettingsScreen extends ConsumerWidget {
                     .read(authNotifierProvider.notifier)
                     .signOut();
               },
-              icon: const Icon(Icons.logout, color: AppColors.loss),
-              label: const Text('Sign Out',
-                  style: TextStyle(color: AppColors.loss)),
+              icon: Icon(Icons.logout, color: context.palette.loss),
+              label: Text('Sign Out',
+                  style: TextStyle(color: context.palette.loss)),
               style: OutlinedButton.styleFrom(
-                side: const BorderSide(color: AppColors.loss),
+                side: BorderSide(color: context.palette.loss),
                 minimumSize: const Size.fromHeight(48),
               ),
             ),
@@ -321,7 +321,7 @@ class SettingsScreen extends ConsumerWidget {
           SnackBar(
             content: Text(
                 'Exported ${portfolio.fundHoldings.length} funds for $memberName'),
-            backgroundColor: AppColors.gain,
+            backgroundColor: context.palette.gain,
           ),
         );
       }
@@ -331,7 +331,7 @@ class SettingsScreen extends ConsumerWidget {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('Export failed: $e'),
-            backgroundColor: AppColors.loss,
+            backgroundColor: context.palette.loss,
           ),
         );
       }

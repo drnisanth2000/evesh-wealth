@@ -155,7 +155,7 @@ Your portfolio is checked quarterly against this threshold. If overlap exceeds 5
         ),
         EducationalCard(
           icon: Icons.trending_up,
-          iconColor: AppColors.gain,
+          iconColor: context.palette.gain,
           title: 'Stock concentration risk',
           body: '''Even with overlap control, individual stock concentration can sink a portfolio.
 

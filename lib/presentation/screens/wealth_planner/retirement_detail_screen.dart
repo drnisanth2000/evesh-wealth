@@ -59,8 +59,8 @@ class _RetirementDetailScreenState
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      const Icon(Icons.error_outline,
-                          color: AppColors.loss, size: 48),
+                      Icon(Icons.error_outline,
+                          color: context.palette.loss, size: 48),
                       const SizedBox(height: 12),
                       Text(
                         'Error loading retirement data',
@@ -209,11 +209,11 @@ class _CorpusSummaryCard extends StatelessWidget {
   Color _statusColor(BuildContext context) {
     switch (readiness.statusLabel) {
       case 'On Track':
-        return AppColors.gain;
+        return context.palette.gain;
       case 'Needs Attention':
         return AppColors.warning;
       case 'Behind':
-        return AppColors.loss;
+        return context.palette.loss;
       case 'Critical':
         return AppColors.alertUrgent;
       default:
@@ -293,7 +293,7 @@ class _CorpusSummaryCard extends StatelessWidget {
               label: readiness.gap < 0 ? 'Over-funded by' : 'Gap',
               value: readiness.gap.abs().toINR(compact: true),
               valueColor:
-                  readiness.gap <= 0 ? AppColors.gain : AppColors.loss,
+                  readiness.gap <= 0 ? context.palette.gain : context.palette.loss,
             ),
             _DetailRow(
               label: 'Years to Retirement',
@@ -395,8 +395,8 @@ class _SurplusCard extends StatelessWidget {
               label: 'Investable Surplus',
               value: gap.investableSurplus.toINR(compact: true),
               valueColor: gap.investableSurplus > 0
-                  ? AppColors.gain
-                  : AppColors.loss,
+                  ? context.palette.gain
+                  : context.palette.loss,
             ),
             _DetailRow(
               label: 'Required Monthly SIP',
@@ -406,8 +406,8 @@ class _SurplusCard extends StatelessWidget {
               label: 'SIP Affordable?',
               value: gap.isSipAffordable ? 'Yes ✓' : 'No — exceeds surplus',
               valueColor: gap.isSipAffordable
-                  ? AppColors.gain
-                  : AppColors.loss,
+                  ? context.palette.gain
+                  : context.palette.loss,
             ),
 
             if (gap.incomeType != 'steady') ...[
@@ -499,7 +499,7 @@ class _DistributionPhaseCard extends StatelessWidget {
             _DetailRow(
               label: 'Monthly Income (initial)',
               value: dist.monthlyIncome.toINR(compact: true),
-              valueColor: AppColors.gain,
+              valueColor: context.palette.gain,
             ),
 
             Padding(
@@ -613,10 +613,10 @@ class _CorpusProjectionChart extends StatelessWidget {
       final ratio =
           maxVal > 0 ? proj.corpusEnd / maxVal : 0.0;
       final barColor = ratio > 0.5
-          ? AppColors.gain
+          ? context.palette.gain
           : ratio > 0.2
               ? AppColors.warning
-              : AppColors.loss;
+              : context.palette.loss;
 
       return BarChartGroupData(
         x: idx,

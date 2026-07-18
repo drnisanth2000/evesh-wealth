@@ -50,8 +50,8 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
       ref.invalidate(currentProfileProvider);
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Profile updated'),
-              backgroundColor: AppColors.gain),
+          SnackBar(content: Text('Profile updated'),
+              backgroundColor: context.palette.gain),
         );
         Navigator.of(context).pop();
       }
@@ -59,7 +59,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Error: $e'),
-              backgroundColor: AppColors.loss),
+              backgroundColor: context.palette.loss),
         );
       }
     } finally {

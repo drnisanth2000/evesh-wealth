@@ -124,8 +124,8 @@ class _FundDetailScreenState extends ConsumerState<FundDetailScreen> {
                               value:
                                   '${fund.nav1dChangePct! >= 0 ? '+' : ''}${fund.nav1dChangePct!.toStringAsFixed(2)}%',
                               color: fund.nav1dChangePct! >= 0
-                                  ? AppColors.gain
-                                  : AppColors.loss,
+                                  ? context.palette.gain
+                                  : context.palette.loss,
                             ),
                           const SizedBox(width: 20),
                           if (fund.expenseRatio != null)
@@ -304,7 +304,7 @@ class _FundDetailScreenState extends ConsumerState<FundDetailScreen> {
                       value:
                           '${holding.gain >= 0 ? '+' : ''}${holding.gain.toINRCompact()} (${holding.gainPct.toReturnLabel()})',
                       valueColor:
-                          holding.gain >= 0 ? AppColors.gain : AppColors.loss,
+                          holding.gain >= 0 ? context.palette.gain : context.palette.loss,
                     ),
                     KpiCard(
                       label: 'XIRR',
@@ -312,7 +312,7 @@ class _FundDetailScreenState extends ConsumerState<FundDetailScreen> {
                           ? holding.xirr!.toReturnLabel()
                           : '—',
                       valueColor: holding.xirr != null
-                          ? (holding.xirr! >= 0 ? AppColors.gain : AppColors.loss)
+                          ? (holding.xirr! >= 0 ? context.palette.gain : context.palette.loss)
                           : null,
                     ),
                     KpiCard(
@@ -321,7 +321,7 @@ class _FundDetailScreenState extends ConsumerState<FundDetailScreen> {
                           ? holding.cagr!.toReturnLabel()
                           : '—',
                       valueColor: holding.cagr != null
-                          ? (holding.cagr! >= 0 ? AppColors.gain : AppColors.loss)
+                          ? (holding.cagr! >= 0 ? context.palette.gain : context.palette.loss)
                           : null,
                     ),
                     KpiCard(
@@ -415,7 +415,7 @@ class _FundDetailScreenState extends ConsumerState<FundDetailScreen> {
                                 'Risk-adjusted return vs risk-free rate (6.5%). >1 is good, >2 great.',
                             valueColor: analytics.sharpe != null &&
                                     analytics.sharpe! > 1
-                                ? AppColors.gain
+                                ? context.palette.gain
                                 : null,
                           ),
                           KpiCard(
@@ -425,7 +425,7 @@ class _FundDetailScreenState extends ConsumerState<FundDetailScreen> {
                                 'Like Sharpe but only penalises downside volatility.',
                             valueColor: analytics.sortino != null &&
                                     analytics.sortino! > 1
-                                ? AppColors.gain
+                                ? context.palette.gain
                                 : null,
                           ),
                           KpiCard(
@@ -440,7 +440,7 @@ class _FundDetailScreenState extends ConsumerState<FundDetailScreen> {
                             tooltip:
                                 'Largest peak-to-trough NAV decline since inception.',
                             valueColor: analytics.maxDrawdown != null
-                                ? AppColors.loss
+                                ? context.palette.loss
                                 : null,
                           ),
                           KpiCard(
@@ -643,9 +643,9 @@ class _FundAlertSection extends ConsumerWidget {
                               _navigateToAdd(context, editRule: rule),
                         ),
                         IconButton(
-                          icon: const Icon(
+                          icon: Icon(
                             Icons.delete_outline,
-                            color: AppColors.loss,
+                            color: context.palette.loss,
                           ),
                           onPressed: () async {
                             final confirmed = await showDialog<bool>(
@@ -664,10 +664,10 @@ class _FundAlertSection extends ConsumerWidget {
                                   TextButton(
                                     onPressed: () =>
                                         Navigator.of(ctx).pop(true),
-                                    child: const Text(
+                                    child: Text(
                                       'Delete',
                                       style:
-                                          TextStyle(color: AppColors.loss),
+                                          TextStyle(color: context.palette.loss),
                                     ),
                                   ),
                                 ],
@@ -901,12 +901,12 @@ class _NavChart extends StatelessWidget {
                   .toList(),
               isCurved: true,
               curveSmoothness: 0.2,
-              color: isGain ? AppColors.gain : AppColors.loss,
+              color: isGain ? context.palette.gain : context.palette.loss,
               barWidth: 2,
               dotData: const FlDotData(show: false),
               belowBarData: BarAreaData(
                 show: true,
-                color: (isGain ? AppColors.gain : AppColors.loss)
+                color: (isGain ? context.palette.gain : context.palette.loss)
                     .withOpacity(0.08),
               ),
             ),

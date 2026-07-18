@@ -118,7 +118,7 @@ class _ProjectionScreenState extends ConsumerState<ProjectionScreen>
           Expanded(
             child: resultAsync.when(
               loading: () => const Center(child: CircularProgressIndicator()),
-              error: (e, _) => Center(child: Text('Error: $e', style: const TextStyle(color: AppColors.loss))),
+              error: (e, _) => Center(child: Text('Error: $e', style: TextStyle(color: context.palette.loss))),
               data: (result) => TabBarView(
                 controller: _tabCtrl,
                 children: [
@@ -319,7 +319,7 @@ class _WaterfallTab extends StatelessWidget {
               ),
               barGroups: steps.asMap().entries.map((entry) {
                 final step = entry.value;
-                final color = step.isPositive ? AppColors.gain : AppColors.loss;
+                final color = step.isPositive ? context.palette.gain : context.palette.loss;
                 return BarChartGroupData(
                   x: entry.key,
                   barRods: [
@@ -339,7 +339,7 @@ class _WaterfallTab extends StatelessWidget {
 
         // Step details
         ...steps.map((step) {
-          final color = step.isPositive ? AppColors.gain : AppColors.loss;
+          final color = step.isPositive ? context.palette.gain : context.palette.loss;
           final sign = step.isPositive ? '+' : '-';
           return Padding(
             padding: const EdgeInsets.symmetric(vertical: 4),
@@ -407,7 +407,7 @@ class _StressCard extends StatelessWidget {
           children: [
             Row(
               children: [
-                const Icon(Icons.bolt, color: AppColors.loss, size: 18),
+                Icon(Icons.bolt, color: context.palette.loss, size: 18),
                 const SizedBox(width: 8),
                 Expanded(
                   child: Column(
@@ -427,9 +427,9 @@ class _StressCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 _KpiCol('Drawdown', '${scenario.portfolioDrawdownPct.toStringAsFixed(1)}%',
-                    color: AppColors.loss),
+                    color: context.palette.loss),
                 _KpiCol('Loss', scenario.portfolioLoss.toINR(compact: true),
-                    color: AppColors.loss),
+                    color: context.palette.loss),
                 _KpiCol('Nadir', scenario.nadir.toINR(compact: true)),
                 _KpiCol('Recovery', '${scenario.recoveryMonths}mo',
                     color: AppColors.warning),
@@ -471,7 +471,7 @@ class _BehaviorCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isBaseline = scenario.costOfMistake <= 0;
-    final borderColor = isBaseline ? AppColors.gain : AppColors.loss;
+    final borderColor = isBaseline ? context.palette.gain : context.palette.loss;
 
     return Card(
       color: context.palette.bgCard,
@@ -500,12 +500,12 @@ class _BehaviorCard extends StatelessWidget {
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                     decoration: BoxDecoration(
-                      color: AppColors.loss.withValues(alpha: 0.12),
+                      color: context.palette.loss.withValues(alpha: 0.12),
                       borderRadius: BorderRadius.circular(6),
                     ),
                     child: Text(
                       '-${scenario.costPct.toStringAsFixed(1)}%',
-                      style: const TextStyle(fontSize: 12, color: AppColors.loss, fontWeight: FontWeight.w700),
+                      style: TextStyle(fontSize: 12, color: context.palette.loss, fontWeight: FontWeight.w700),
                     ),
                   ),
               ],
@@ -521,7 +521,7 @@ class _BehaviorCard extends StatelessWidget {
                 if (!isBaseline) ...[
                   _KpiCol('Baseline', scenario.baselineValue.toINR(compact: true)),
                   _KpiCol('Cost', scenario.costOfMistake.toINR(compact: true),
-                      color: AppColors.loss),
+                      color: context.palette.loss),
                 ],
               ],
             ),

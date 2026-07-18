@@ -541,7 +541,7 @@ class _UnassignedRow extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final fmt = NumberFormat.currency(
-        locale: 'en_IN', symbol: 'Rs ', decimalDigits: 0);
+        locale: 'en_IN', symbol: '₹', decimalDigits: 0);
     double total = 0;
     for (final f in funds) {
       total += f.currentValue;
@@ -624,7 +624,7 @@ class _FundChip extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final fmt = NumberFormat.compactCurrency(
-        locale: 'en_IN', symbol: 'Rs ', decimalDigits: 1);
+        locale: 'en_IN', symbol: '₹', decimalDigits: 1);
     return PopupMenuButton<String>(
       tooltip: 'Move to another goal',
       itemBuilder: (ctx) {
@@ -715,7 +715,7 @@ class _ProgressBlock extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final fmt = NumberFormat.currency(
-        locale: 'en_IN', symbol: 'Rs ', decimalDigits: 0);
+        locale: 'en_IN', symbol: '₹', decimalDigits: 0);
     final pct = goal.targetAmount > 0
         ? (current / goal.targetAmount * 100).clamp(0, 999).toDouble()
         : 0.0;

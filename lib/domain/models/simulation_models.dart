@@ -279,7 +279,9 @@ class FrozenPlan {
 
   factory FrozenPlan.fromJson(Map<String, dynamic> json) {
     final rawFundAllocations =
-        (json['fund_allocations'] as Map<String, dynamic>?) ?? {};
+        ((json['fund_allocations'] ?? json['fundAllocations'])
+                as Map<String, dynamic>?) ??
+            {};
     final rawBucketTargets =
         (json['bucket_targets'] as Map<String, dynamic>?);
     final rawAssetClassTargets =
@@ -287,13 +289,17 @@ class FrozenPlan {
 
     return FrozenPlan(
       id: json['id'] as String?,
-      ownerId: json['owner_id'] as String,
+      ownerId: (json['owner_id'] ?? json['ownerId']) as String,
       memberId: json['member_id'] as String?,
       fundAllocations: rawFundAllocations.map(
         (k, v) => MapEntry(int.parse(k), (v as num).toDouble()),
       ),
-      additionalLumpsum: (json['additional_lumpsum'] as num).toDouble(),
-      additionalSip: (json['additional_sip'] as num).toDouble(),
+      additionalLumpsum:
+          ((json['additional_lumpsum'] ?? json['additionalLumpsum']) as num)
+              .toDouble(),
+      additionalSip:
+          ((json['additional_sip'] ?? json['additionalSip']) as num)
+              .toDouble(),
       healthScore: json['health_score'] as int?,
       healthDelta: json['health_delta'] as int?,
       totalTaxImpact: (json['total_tax_impact'] as num?)?.toDouble(),

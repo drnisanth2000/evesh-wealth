@@ -147,7 +147,7 @@ class _FundSliderRowState extends State<FundSliderRow> {
 
   @override
   Widget build(BuildContext context) {
-    final sliderColor = _isSelling ? AppColors.loss : AppColors.gain;
+    final sliderColor = _isSelling ? context.palette.loss : context.palette.gain;
     final taxImpact = widget.taxImpact;
 
     return Padding(
@@ -338,7 +338,7 @@ class _PillsRow extends StatelessWidget {
     final palette = context.palette;
     final driftColor = driftPp.abs() < 0.1
         ? palette.textTertiary
-        : (driftPp > 0 ? AppColors.gain : AppColors.loss);
+        : (driftPp > 0 ? context.palette.gain : context.palette.loss);
     final sign = driftPp > 0 ? '+' : '';
     return Wrap(
       spacing: 6,

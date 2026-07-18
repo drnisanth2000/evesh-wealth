@@ -4,6 +4,7 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
 import '../../../core/theme/app_colors.dart';
+import '../../../core/theme/app_palette.dart';
 
 /// Compact circular score gauge showing a 0-100 score with color coding.
 class ScoreGauge extends StatelessWidget {

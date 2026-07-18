@@ -61,7 +61,7 @@ class AlertsScreen extends ConsumerWidget {
             return ListView(
               children: [
                 if (urgent.isNotEmpty) ...[
-                  _GroupHeader('URGENT', AppColors.loss),
+                  _GroupHeader('URGENT', context.palette.loss),
                   ...urgent.map((a) => _AlertTile(
                         alert: a,
                         onRead: () => notifier.markRead(a.id),
@@ -120,7 +120,7 @@ class _AlertTile extends StatelessWidget {
   static Color _severityColor(BuildContext context, String severity) {
     switch (severity) {
       case 'URGENT':
-        return AppColors.loss;
+        return context.palette.loss;
       case 'MEDIUM':
         return AppColors.warning;
       case 'LOW':

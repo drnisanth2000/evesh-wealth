@@ -244,12 +244,12 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
     if (!mounted) return;
     if (error != null) {
       ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text(error), backgroundColor: AppColors.loss));
+          .showSnackBar(SnackBar(content: Text(error), backgroundColor: context.palette.loss));
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(_isEditMode ? 'Transaction updated' : 'Transaction added successfully'),
-          backgroundColor: AppColors.gain,
+          backgroundColor: context.palette.gain,
         ),
       );
       Navigator.of(context).pop();

@@ -74,7 +74,7 @@ class BenchmarkComparisonChart extends StatelessWidget {
           spacing: 16,
           runSpacing: 4,
           children: [
-            _LegendDot(color: AppColors.gain, label: 'Fund $fundCagrLabel'),
+            _LegendDot(color: context.palette.gain, label: 'Fund $fundCagrLabel'),
             _LegendDot(color: Colors.blueAccent, label: '$benchmarkLabel $indexCagrLabel'),
           ],
         ),
@@ -98,7 +98,7 @@ class BenchmarkComparisonChart extends StatelessWidget {
               lineBarsData: [
                 LineChartBarData(
                   spots: fundSpots,
-                  color: AppColors.gain,
+                  color: context.palette.gain,
                   barWidth: 2,
                   isCurved: false,
                   dotData: const FlDotData(show: false),

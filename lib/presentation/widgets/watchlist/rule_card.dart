@@ -34,26 +34,26 @@ class RuleCard extends ConsumerWidget {
     switch (rule.ruleType) {
       case 'stop_loss':
         if (nav <= threshold) {
-          return (label: 'Breached', color: AppColors.loss);
+          return (label: 'Breached', color: context.palette.loss);
         }
         final buffer = nav - threshold;
         final pct = (buffer / nav * 100);
         if (pct < 5) {
           return (label: 'Near ₹${nav.toStringAsFixed(2)}', color: AppColors.warning);
         }
-        return (label: 'Safe ₹${nav.toStringAsFixed(2)}', color: AppColors.gain);
+        return (label: 'Safe ₹${nav.toStringAsFixed(2)}', color: context.palette.gain);
 
       case 'gain_harvest':
       case 'price_target':
         if (nav >= threshold) {
-          return (label: 'Breached', color: AppColors.loss);
+          return (label: 'Breached', color: context.palette.loss);
         }
         final distance = threshold - nav;
         final pct = (distance / threshold * 100);
         if (pct < 5) {
           return (label: 'Near ₹${nav.toStringAsFixed(2)}', color: AppColors.warning);
         }
-        return (label: 'Safe ₹${nav.toStringAsFixed(2)}', color: AppColors.gain);
+        return (label: 'Safe ₹${nav.toStringAsFixed(2)}', color: context.palette.gain);
 
       default:
         return (label: 'Monitoring', color: context.palette.textTertiary);
@@ -63,9 +63,9 @@ class RuleCard extends ConsumerWidget {
   Color _badgeColor(BuildContext context) {
     switch (rule.ruleType) {
       case 'stop_loss':
-        return AppColors.loss;
+        return context.palette.loss;
       case 'gain_harvest':
-        return AppColors.gain;
+        return context.palette.gain;
       case 'price_target':
         return AppColors.primary;
       case 'allocation_drift':
@@ -93,10 +93,10 @@ class RuleCard extends ConsumerWidget {
         alignment: Alignment.centerRight,
         padding: const EdgeInsets.only(right: 20),
         decoration: BoxDecoration(
-          color: AppColors.loss.withValues(alpha: 0.15),
+          color: context.palette.loss.withValues(alpha: 0.15),
           borderRadius: BorderRadius.circular(16),
         ),
-        child: const Icon(Icons.delete_outline, color: AppColors.loss, size: 24),
+        child: Icon(Icons.delete_outline, color: context.palette.loss, size: 24),
       ),
       confirmDismiss: (_) async {
         return await showDialog<bool>(
@@ -117,8 +117,8 @@ class RuleCard extends ConsumerWidget {
               ),
               TextButton(
                 onPressed: () => Navigator.of(ctx).pop(true),
-                child: const Text('Delete',
-                    style: TextStyle(color: AppColors.loss)),
+                child: Text('Delete',
+                    style: TextStyle(color: context.palette.loss)),
               ),
             ],
           ),

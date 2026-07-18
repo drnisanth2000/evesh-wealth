@@ -291,7 +291,7 @@ class _AssetTile extends StatelessWidget {
               '${gain >= 0 ? '+' : ''}${gain.toINRCompact()}',
               style: TextStyle(
                   fontSize: 11,
-                  color: gain >= 0 ? AppColors.gain : AppColors.loss),
+                  color: gain >= 0 ? context.palette.gain : context.palette.loss),
             ),
           ],
         ),

@@ -133,7 +133,7 @@ class _WhatIfScreenState extends ConsumerState<WhatIfScreen> {
                 child: Center(child: CircularProgressIndicator()),
               ),
               error: (e, _) => Text('Error: $e',
-                  style: const TextStyle(color: AppColors.loss)),
+                  style: TextStyle(color: context.palette.loss)),
               data: (result) {
                 if (result == null) {
                   return Text('No data available for this fund.',
@@ -163,14 +163,14 @@ class _WhatIfScreenState extends ConsumerState<WhatIfScreen> {
                           label: 'Projected Gain',
                           value:
                               '+${result.projectedGain.toINRCompact()}',
-                          valueColor: AppColors.gain,
+                          valueColor: context.palette.gain,
                         ),
                         KpiCard(
                           label: 'Projected XIRR',
                           value: result.projectedXirr != null
                               ? result.projectedXirr!.toReturnLabel()
                               : '—',
-                          valueColor: AppColors.gain,
+                          valueColor: context.palette.gain,
                         ),
                       ],
                     ),
@@ -354,9 +354,9 @@ class _AllocationDelta extends StatelessWidget {
           final a = after[key] ?? 0;
           final delta = a - b;
           final color = delta > 0
-              ? AppColors.gain
+              ? context.palette.gain
               : delta < 0
-                  ? AppColors.loss
+                  ? context.palette.loss
                   : context.palette.textTertiary;
           return Padding(
             padding: const EdgeInsets.symmetric(vertical: 4),

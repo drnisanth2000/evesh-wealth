@@ -117,7 +117,7 @@ class _StockExposureItem extends StatelessWidget {
 
     return Container(
       color: isHighRisk
-          ? AppColors.loss.withValues(alpha: 0.06)
+          ? context.palette.loss.withValues(alpha: 0.06)
           : Colors.transparent,
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
       child: Row(

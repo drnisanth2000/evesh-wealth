@@ -86,7 +86,7 @@ class RecommendationCard extends StatelessWidget {
                         label: recommendation.isSip ? 'SIP' : 'Lumpsum',
                         color: recommendation.isSip
                             ? AppColors.primary
-                            : AppColors.gain,
+                            : context.palette.gain,
                       ),
                     ],
                   ),
@@ -137,8 +137,8 @@ class RecommendationCard extends StatelessWidget {
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Icon(Icons.check_circle_outline,
-                            size: 14, color: AppColors.gain),
+                        Icon(Icons.check_circle_outline,
+                            size: 14, color: context.palette.gain),
                         const SizedBox(width: 6),
                         Expanded(
                           child: Text(
@@ -207,7 +207,7 @@ class _MetricChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final color = value >= 0 ? AppColors.gain : AppColors.loss;
+    final color = value >= 0 ? context.palette.gain : context.palette.loss;
     return Text(
       '$label ${value.toStringAsFixed(1)}%',
       style: TextStyle(fontSize: 10, color: color, fontWeight: FontWeight.w600),

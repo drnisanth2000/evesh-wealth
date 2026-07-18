@@ -400,7 +400,7 @@ class _MemberEditPageState extends State<_MemberEditPage> {
           if (_isEditing && widget.member?.relationship != 'Self')
             IconButton(
               onPressed: (_saving || _deleting) ? null : _delete,
-              icon: const Icon(Icons.delete_outline, color: AppColors.loss),
+              icon: Icon(Icons.delete_outline, color: context.palette.loss),
               tooltip: 'Remove Member',
             ),
         ],
@@ -674,7 +674,7 @@ class _MemberEditPageState extends State<_MemberEditPage> {
                         value: (total / 100).clamp(0, 1),
                         backgroundColor: context.palette.bgDivider,
                         valueColor: AlwaysStoppedAnimation(
-                            valid ? AppColors.gain : AppColors.warning),
+                            valid ? context.palette.gain : AppColors.warning),
                         minHeight: 4,
                       ),
                     ),
@@ -685,14 +685,14 @@ class _MemberEditPageState extends State<_MemberEditPage> {
                     style: TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.w600,
-                      color: valid ? AppColors.gain : AppColors.loss,
+                      color: valid ? context.palette.gain : context.palette.loss,
                     ),
                   ),
                   if (valid)
-                    const Padding(
+                    Padding(
                       padding: EdgeInsets.only(left: 4),
                       child:
-                          Icon(Icons.check_circle, size: 14, color: AppColors.gain),
+                          Icon(Icons.check_circle, size: 14, color: context.palette.gain),
                     ),
                 ],
               );
@@ -804,9 +804,9 @@ class _MemberEditPageState extends State<_MemberEditPage> {
     final total = _allocationTotal;
     if ((total - 100).abs() > 0.5) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
+        SnackBar(
             content: Text('Target allocation must sum to 100%'),
-            backgroundColor: AppColors.loss),
+            backgroundColor: context.palette.loss),
       );
       return;
     }
@@ -914,7 +914,7 @@ class _MemberEditPageState extends State<_MemberEditPage> {
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error: $e'), backgroundColor: AppColors.loss),
+          SnackBar(content: Text('Error: $e'), backgroundColor: context.palette.loss),
         );
       }
     } finally {
@@ -925,9 +925,9 @@ class _MemberEditPageState extends State<_MemberEditPage> {
   Future<void> _delete() async {
     if (widget.member?.relationship == 'Self') {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
+        SnackBar(
             content: Text('Cannot remove Self member'),
-            backgroundColor: AppColors.loss),
+            backgroundColor: context.palette.loss),
       );
       return;
     }
@@ -945,8 +945,8 @@ class _MemberEditPageState extends State<_MemberEditPage> {
           ),
           TextButton(
             onPressed: () => Navigator.pop(ctx, true),
-            child: const Text('Remove',
-                style: TextStyle(color: AppColors.loss)),
+            child: Text('Remove',
+                style: TextStyle(color: context.palette.loss)),
           ),
         ],
       ),
@@ -968,7 +968,7 @@ class _MemberEditPageState extends State<_MemberEditPage> {
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error: $e'), backgroundColor: AppColors.loss),
+          SnackBar(content: Text('Error: $e'), backgroundColor: context.palette.loss),
         );
       }
     } finally {

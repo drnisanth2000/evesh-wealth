@@ -233,9 +233,9 @@ class _SearchResults extends ConsumerWidget {
                         size: 20,
                       )
                     : isSelected
-                        ? const Icon(
+                        ? Icon(
                             Icons.check_circle,
-                            color: AppColors.gain,
+                            color: context.palette.gain,
                             size: 20,
                           )
                         : null,
@@ -295,7 +295,7 @@ class _ComparisonTable extends ConsumerWidget {
 
     Color cellColor(double? value, double? bestValue) {
       if (value == null || bestValue == null) return context.palette.textPrimary;
-      return value == bestValue ? AppColors.gain : context.palette.textPrimary;
+      return value == bestValue ? context.palette.gain : context.palette.textPrimary;
     }
 
     // Build rows: label + values per fund
@@ -348,9 +348,9 @@ class _ComparisonTable extends ConsumerWidget {
           return Text(
             v != null ? v.toPercent(decimals: 2) : '—',
             style: v != null && v == bestEr
-                ? const TextStyle(
+                ? TextStyle(
                     fontSize: 12,
-                    color: AppColors.gain,
+                    color: context.palette.gain,
                     fontWeight: FontWeight.bold,
                   )
                 : TextStyle(fontSize: 12, color: context.palette.textPrimary),

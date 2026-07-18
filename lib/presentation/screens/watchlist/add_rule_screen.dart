@@ -519,7 +519,7 @@ class _AddRuleScreenState extends ConsumerState<AddRuleScreen> {
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
-          borderSide: const BorderSide(color: AppColors.loss),
+          borderSide: BorderSide(color: context.palette.loss),
         ),
       ),
       style: TextStyle(color: context.palette.textPrimary),
@@ -701,7 +701,7 @@ class _FundSearchResults extends ConsumerWidget {
         padding: const EdgeInsets.all(8),
         child: Text(
           'Error: $e',
-          style: const TextStyle(color: AppColors.loss, fontSize: 12),
+          style: TextStyle(color: context.palette.loss, fontSize: 12),
         ),
       ),
       data: (funds) {

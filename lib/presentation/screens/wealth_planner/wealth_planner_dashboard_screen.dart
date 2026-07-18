@@ -78,8 +78,8 @@ class WealthPlannerDashboardScreen extends ConsumerWidget {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      const Icon(Icons.error_outline,
-                          color: AppColors.loss, size: 48),
+                      Icon(Icons.error_outline,
+                          color: context.palette.loss, size: 48),
                       const SizedBox(height: 12),
                       Text(
                         'Error loading wealth planner data',
@@ -268,7 +268,7 @@ class _PortfolioSummaryCard extends StatelessWidget {
                     ? xirr!.toPercent()
                     : '—',
                 valueColor: xirr != null && xirr! > 0
-                    ? AppColors.gain
+                    ? context.palette.gain
                     : context.palette.textSecondary,
               ),
             ),
@@ -391,10 +391,10 @@ class _ActionCenterLinkCard extends StatelessWidget {
                 width: 40,
                 height: 40,
                 decoration: BoxDecoration(
-                  color: AppColors.loss.withValues(alpha: 0.12),
+                  color: context.palette.loss.withValues(alpha: 0.12),
                   borderRadius: BorderRadius.circular(10),
                 ),
-                child: const Icon(Icons.playlist_add_check, color: AppColors.loss, size: 20),
+                child: Icon(Icons.playlist_add_check, color: context.palette.loss, size: 20),
               ),
               const SizedBox(width: 14),
               Expanded(

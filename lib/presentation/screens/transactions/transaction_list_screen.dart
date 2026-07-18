@@ -104,8 +104,8 @@ class _TransactionListScreenState
           ),
           TextButton(
             onPressed: () => Navigator.pop(ctx, true),
-            child: const Text('Delete',
-                style: TextStyle(color: AppColors.loss)),
+            child: Text('Delete',
+                style: TextStyle(color: context.palette.loss)),
           ),
         ],
       ),
@@ -131,7 +131,7 @@ class _TransactionListScreenState
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text('$count transaction${count == 1 ? '' : 's'} deleted'),
-        backgroundColor: AppColors.gain,
+        backgroundColor: context.palette.gain,
       ),
     );
   }
@@ -153,8 +153,8 @@ class _TransactionListScreenState
           ),
           TextButton(
             onPressed: () => Navigator.pop(ctx, true),
-            child: const Text('Clear All',
-                style: TextStyle(color: AppColors.loss)),
+            child: Text('Clear All',
+                style: TextStyle(color: context.palette.loss)),
           ),
         ],
       ),
@@ -189,7 +189,7 @@ class _TransactionListScreenState
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text('$count transaction${count == 1 ? '' : 's'} deleted'),
-        backgroundColor: AppColors.gain,
+        backgroundColor: context.palette.gain,
       ),
     );
   }
@@ -266,8 +266,8 @@ class _TransactionListScreenState
                   .read(transactionNotifierProvider.notifier)
                   .deleteTransaction(tx.id);
             },
-            child: const Text('Delete',
-                style: TextStyle(color: AppColors.loss)),
+            child: Text('Delete',
+                style: TextStyle(color: context.palette.loss)),
           ),
         ],
       ),
@@ -314,7 +314,7 @@ class _TransactionListScreenState
             IconButton(
               icon: const Icon(Icons.delete_outline),
               tooltip: 'Delete selected',
-              color: AppColors.loss,
+              color: context.palette.loss,
               onPressed: _selectedIds.isEmpty ? null : _deleteSelected,
             ),
           ],
@@ -431,11 +431,11 @@ class _TransactionListScreenState
                             const SizedBox(width: 4),
                             TextButton.icon(
                               onPressed: () => _clearAll(filtered),
-                              icon: const Icon(Icons.delete_sweep_outlined,
-                                  size: 14, color: AppColors.loss),
-                              label: const Text('Clear',
+                              icon: Icon(Icons.delete_sweep_outlined,
+                                  size: 14, color: context.palette.loss),
+                              label: Text('Clear',
                                   style: TextStyle(
-                                      fontSize: 11, color: AppColors.loss)),
+                                      fontSize: 11, color: context.palette.loss)),
                               style: TextButton.styleFrom(
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 4),
@@ -619,7 +619,7 @@ class _TxTile extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
-                        color: isPurchase ? context.palette.textPrimary : AppColors.gain,
+                        color: isPurchase ? context.palette.textPrimary : context.palette.gain,
                       ),
                     ),
                     if (tx.navAtTx != null)

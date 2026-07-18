@@ -131,11 +131,11 @@ Non-buy/non-sell types are now ignored by both `isPurchase` and `isRedemption`.
 
 ### 4.1 Data Sources & Upload Order
 
-| Step | Source | Target Table | Purpose |
-|------|--------|-------------|---------|
-| 1 | CAMS CAS PDF | `transactions` + `folio_details` | All buy/sell records since inception |
-| 2 | CAMS Tax XLSX or MFC Tax XLSX | `cams_tax_statements` | Registrar-verified capital gains for FY |
-| 3 | Manual entry (if needed) | `transactions` | Non-MF assets (stocks, SGBs, FDs, etc.) |
+| Step | Source                        | Target Table                     | Purpose                                 |
+| ---- | ----------------------------- | -------------------------------- | --------------------------------------- |
+| 1    | CAMS CAS PDF                  | `transactions` + `folio_details` | All buy/sell records since inception    |
+| 2    | CAMS Tax XLSX or MFC Tax XLSX | `cams_tax_statements`            | Registrar-verified capital gains for FY |
+| 3    | Manual entry (if needed)      | `transactions`                   | Non-MF assets (stocks, SGBs, FDs, etc.) |
 
 **IMPORTANT:** Always upload CAS PDF **before** Tax XLSX. The CAS provides the transaction foundation; the Tax XLSX provides the verification layer.
 

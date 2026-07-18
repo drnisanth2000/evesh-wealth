@@ -60,7 +60,7 @@ class _AssetClassCardState extends State<AssetClassCard> {
   Widget build(BuildContext context) {
     final gapColor = widget.gapPct.abs() < 2
         ? context.palette.textSecondary
-        : (widget.gapPct > 0 ? AppColors.gain : AppColors.loss);
+        : (widget.gapPct > 0 ? context.palette.gain : context.palette.loss);
 
     // Asset-class colour anchor (left bar + count badge background).
     final accent =

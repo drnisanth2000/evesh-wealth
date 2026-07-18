@@ -124,9 +124,9 @@ class _ScreenerTabState extends ConsumerState<ScreenerTab> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Icon(
+                  Icon(
                     Icons.error_outline,
-                    color: AppColors.loss,
+                    color: context.palette.loss,
                     size: 40,
                   ),
                   const SizedBox(height: 12),

@@ -294,7 +294,7 @@ class _MatrixRowCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final netColor =
-        row.netReturn >= 0 ? AppColors.gain : AppColors.loss;
+        row.netReturn >= 0 ? context.palette.gain : context.palette.loss;
 
     final maturityFormatted = row.maturityValue.toINRCompact();
     final amountFormatted = amount.toINRCompact();
@@ -381,8 +381,8 @@ class _MatrixRowCard extends StatelessWidget {
                 _Chip(
                   label:
                       '-${row.taxImpact.abs().toPercent(decimals: 1)} tax',
-                  color: AppColors.loss,
-                  bgColor: AppColors.loss.withValues(alpha: 0.12),
+                  color: context.palette.loss,
+                  bgColor: context.palette.loss.withValues(alpha: 0.12),
                 ),
                 _Chip(
                   label: row.taxTreatment,

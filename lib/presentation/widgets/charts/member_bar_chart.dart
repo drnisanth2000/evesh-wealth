@@ -89,7 +89,7 @@ class MemberBarChart extends StatelessWidget {
                 ),
                 BarChartRodData(
                   toY: m.currentValue,
-                  color: isGain ? AppColors.gain : AppColors.loss,
+                  color: isGain ? context.palette.gain : context.palette.loss,
                   width: 12,
                   borderRadius: BorderRadius.circular(4),
                 ),

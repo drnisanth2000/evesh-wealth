@@ -221,8 +221,8 @@ Widget _error(BuildContext context, Object e) => Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Icon(Icons.error_outline,
-                color: AppColors.loss, size: 40),
+            Icon(Icons.error_outline,
+                color: context.palette.loss, size: 40),
             const SizedBox(height: 8),
             Text('$e',
                 textAlign: TextAlign.center,
@@ -370,8 +370,8 @@ class _BucketSilhouette extends StatelessWidget {
     final color = bc.bucket.color;
     // Colour-code the gap readout per AppColors semantic palette.
     final gapColor = bc.gapPct.abs() < 2
-        ? AppColors.gain
-        : (bc.gapPct > 0 ? AppColors.loss : AppColors.info);
+        ? context.palette.gain
+        : (bc.gapPct > 0 ? context.palette.loss : AppColors.info);
 
     return InkWell(
       onTap: onTap,
@@ -606,7 +606,7 @@ class _BucketAllocatorSectionState
     final sumPct = Bucket.values.fold<double>(
         0, (s, b) => s + _effectiveTargetPct(simState, b));
     final balanced = (sumPct - 100).abs() < 0.1;
-    final indicatorColor = balanced ? AppColors.gain : AppColors.loss;
+    final indicatorColor = balanced ? context.palette.gain : context.palette.loss;
     final indicatorLabel = balanced
         ? 'Balanced 100%'
         : (sumPct > 100
@@ -822,10 +822,10 @@ class _BucketSliderRowState extends State<_BucketSliderRow> {
     final deficit = tgt > cur + 0.1;
     final excess = tgt < cur - 0.1;
     final overlayColor = deficit
-        ? AppColors.loss
+        ? context.palette.loss
         : excess
             ? AppColors.warning
-            : AppColors.gain;
+            : context.palette.gain;
     final lo = cur < tgt ? cur : tgt;
     final hi = cur > tgt ? cur : tgt;
 
@@ -891,7 +891,7 @@ class _BucketSliderRowState extends State<_BucketSliderRow> {
                           width: w * (lo / 100),
                           child: Container(
                             decoration: BoxDecoration(
-                              color: AppColors.gain,
+                              color: context.palette.gain,
                               borderRadius: BorderRadius.circular(3),
                             ),
                           ),

@@ -401,8 +401,8 @@ class _MoveCardState extends ConsumerState<MoveCard> {
             style: TextStyle(
                 fontSize: 11,
                 color: _amount > widget.initialAmount
-                    ? AppColors.gain
-                    : AppColors.loss),
+                    ? context.palette.gain
+                    : context.palette.loss),
           )
         else
           Text(

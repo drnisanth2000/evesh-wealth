@@ -496,14 +496,14 @@ class _HeaderBanner extends StatelessWidget {
     final buy = deltaPct < 0 && !balanced; // target > current
 
     final actionColor = balanced
-        ? AppColors.gain
+        ? context.palette.gain
         : buy
             ? AppColors.warning
-            : AppColors.loss;
+            : context.palette.loss;
     final currentBg = balanced
-        ? AppColors.gain.withValues(alpha: 0.16)
+        ? context.palette.gain.withValues(alpha: 0.16)
         : palette.bgSurface;
-    final currentFg = balanced ? AppColors.gain : palette.textPrimary;
+    final currentFg = balanced ? context.palette.gain : palette.textPrimary;
 
     String actionLabel;
     if (balanced) {
@@ -530,7 +530,7 @@ class _HeaderBanner extends StatelessWidget {
             label: 'Target ${targetPct.toStringAsFixed(1)}%',
             fg: balanced ? AppColors.textOnPrimary : actionColor,
             bg: balanced
-                ? AppColors.gain.withValues(alpha: 0.16)
+                ? context.palette.gain.withValues(alpha: 0.16)
                 : actionColor.withValues(alpha: 0.18),
             bold: true,
           ),
@@ -580,18 +580,18 @@ class _ClassSumStatusBar extends StatelessWidget {
     final IconData icon;
     final String label;
     if (balanced) {
-      color = AppColors.gain;
+      color = context.palette.gain;
       icon = Icons.check_circle;
       label = classTargetRupees <= 0
           ? 'Set a class target to see balance'
           : 'Balanced 100% (${fundTargetSum.toINRCompact()})';
     } else if (delta > 0) {
-      color = AppColors.loss;
+      color = context.palette.loss;
       icon = Icons.error_outline;
       label =
           'Over ${classPct.toStringAsFixed(1)}% — excess ${delta.abs().toINRCompact()}';
     } else {
-      color = AppColors.loss;
+      color = context.palette.loss;
       icon = Icons.error_outline;
       label =
           'Short ${classPct.toStringAsFixed(1)}% — deficit ${delta.abs().toINRCompact()}';
@@ -739,7 +739,7 @@ class _BottomActionBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final palette = context.palette;
     final balanced = (classTargetSumPct - 100).abs() < 0.1;
-    final color = balanced ? AppColors.gain : AppColors.loss;
+    final color = balanced ? context.palette.gain : context.palette.loss;
     final delta = classTargetSumPct - 100;
     final label = balanced
         ? 'Balanced 100%'

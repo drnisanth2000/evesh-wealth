@@ -79,7 +79,7 @@ class ActionItemCard extends StatelessWidget {
                 child: Checkbox(
                   value: item.isCompleted,
                   onChanged: (_) => onToggle(),
-                  activeColor: AppColors.gain,
+                  activeColor: context.palette.gain,
                   side: BorderSide(color: _priorityColor),
                 ),
               ),

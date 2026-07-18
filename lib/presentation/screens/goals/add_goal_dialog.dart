@@ -144,7 +144,7 @@ class _AddGoalDialogState extends ConsumerState<AddGoalDialog> {
                 ],
                 decoration: const InputDecoration(
                   labelText: 'Target Amount (Rs)',
-                  prefixText: 'Rs ',
+                  prefixText: '₹ ',
                   border: OutlineInputBorder(),
                 ),
                 validator: (v) {

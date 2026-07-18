@@ -107,7 +107,7 @@ class _MfOrderStatusTabState extends ConsumerState<MfOrderStatusTab> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Icon(Icons.error_outline, color: AppColors.loss, size: 48),
+              Icon(Icons.error_outline, color: context.palette.loss, size: 48),
               const SizedBox(height: 12),
               Text('Error loading orders',
                   style: TextStyle(color: context.palette.textSecondary)),

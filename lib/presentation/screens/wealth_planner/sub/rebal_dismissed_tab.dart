@@ -138,7 +138,7 @@ class _DismissalCardState extends ConsumerState<_DismissalCard> {
         d.dismissedAt;
     final drift = d.driftPct;
     final barColor =
-        drift != null && drift > 0 ? AppColors.loss : AppColors.info;
+        drift != null && drift > 0 ? context.palette.loss : AppColors.info;
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 6),

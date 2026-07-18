@@ -21,6 +21,8 @@ class AppPalette extends ThemeExtension<AppPalette> {
   final Color textPrimary;     // main body text
   final Color textSecondary;   // muted text
   final Color textTertiary;    // very muted / captions
+  final Color gain;            // profit / positive (AA contrast per mode)
+  final Color loss;            // loss / negative (AA contrast per mode)
 
   const AppPalette({
     required this.bgBase,
@@ -31,6 +33,8 @@ class AppPalette extends ThemeExtension<AppPalette> {
     required this.textPrimary,
     required this.textSecondary,
     required this.textTertiary,
+    required this.gain,
+    required this.loss,
   });
 
   /// Dark-mode preset — the original eVesh look (deep navy, light blue text).
@@ -43,6 +47,8 @@ class AppPalette extends ThemeExtension<AppPalette> {
     textPrimary: Color(0xFFE8F0F8),
     textSecondary: Color(0xFF8BA4C0),
     textTertiary: Color(0xFF4A6A8A),
+    gain: Color(0xFF22C55E),
+    loss: Color(0xFFEF4444),
   );
 
   /// Light-mode preset — soft gray bg, dark navy text.
@@ -56,6 +62,8 @@ class AppPalette extends ThemeExtension<AppPalette> {
     textPrimary: Color(0xFF0A1628),   // deep navy — 14:1 on white
     textSecondary: Color(0xFF4A6A8A), // 5.5:1 on white
     textTertiary: Color(0xFF6B8099),  // 4.6:1 on white
+    gain: Color(0xFF15803D),          // 4.5:1 on white
+    loss: Color(0xFFB91C1C),          // 5.9:1 on white
   );
 
   @override
@@ -68,6 +76,8 @@ class AppPalette extends ThemeExtension<AppPalette> {
     Color? textPrimary,
     Color? textSecondary,
     Color? textTertiary,
+    Color? gain,
+    Color? loss,
   }) {
     return AppPalette(
       bgBase: bgBase ?? this.bgBase,
@@ -78,6 +88,8 @@ class AppPalette extends ThemeExtension<AppPalette> {
       textPrimary: textPrimary ?? this.textPrimary,
       textSecondary: textSecondary ?? this.textSecondary,
       textTertiary: textTertiary ?? this.textTertiary,
+      gain: gain ?? this.gain,
+      loss: loss ?? this.loss,
     );
   }
 
@@ -93,6 +105,8 @@ class AppPalette extends ThemeExtension<AppPalette> {
       textPrimary: Color.lerp(textPrimary, other.textPrimary, t)!,
       textSecondary: Color.lerp(textSecondary, other.textSecondary, t)!,
       textTertiary: Color.lerp(textTertiary, other.textTertiary, t)!,
+      gain: Color.lerp(gain, other.gain, t)!,
+      loss: Color.lerp(loss, other.loss, t)!,
     );
   }
 }

@@ -42,7 +42,7 @@ class DataAuditScreen extends ConsumerWidget {
           child: Padding(
             padding: const EdgeInsets.all(24),
             child: Text('Error running audit: $e',
-                style: const TextStyle(color: AppColors.loss)),
+                style: TextStyle(color: context.palette.loss)),
           ),
         ),
         data: (report) => _AuditResults(report: report),
@@ -83,13 +83,13 @@ class _StatusBanner extends StatelessWidget {
     final String label;
 
     if (report.allPassed) {
-      bg = AppColors.gain.withValues(alpha: 0.1);
-      fg = AppColors.gain;
+      bg = context.palette.gain.withValues(alpha: 0.1);
+      fg = context.palette.gain;
       icon = Icons.check_circle;
       label = 'All ${report.checks.length} checks passed';
     } else if (report.errorCount > 0) {
-      bg = AppColors.loss.withValues(alpha: 0.1);
-      fg = AppColors.loss;
+      bg = context.palette.loss.withValues(alpha: 0.1);
+      fg = context.palette.loss;
       icon = Icons.error;
       label = '${report.errorCount} error(s), ${report.warningCount} warning(s)';
     } else {
@@ -154,13 +154,13 @@ class _CheckCardState extends State<_CheckCard> {
     final IconData statusIcon;
     switch (check.severity) {
       case AuditSeverity.pass:
-        statusColor = AppColors.gain;
+        statusColor = context.palette.gain;
         statusIcon = Icons.check_circle_outline;
       case AuditSeverity.warning:
         statusColor = AppColors.warning;
         statusIcon = Icons.warning_amber_outlined;
       case AuditSeverity.error:
-        statusColor = AppColors.loss;
+        statusColor = context.palette.loss;
         statusIcon = Icons.error_outline;
     }
 

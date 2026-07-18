@@ -219,10 +219,10 @@ class _SegmentedTrack extends StatelessWidget {
     final excess = targetPct < currentPct - 0.1;
 
     final overlayColor = deficit
-        ? AppColors.loss
+        ? context.palette.loss
         : excess
             ? AppColors.warning
-            : AppColors.gain;
+            : context.palette.gain;
 
     final cur = currentPct.clamp(0.0, 100.0);
     final tgt = targetPct.clamp(0.0, 100.0);
@@ -260,7 +260,7 @@ class _SegmentedTrack extends StatelessWidget {
                       width: w * (lo / 100),
                       child: Container(
                         decoration: BoxDecoration(
-                          color: AppColors.gain,
+                          color: context.palette.gain,
                           borderRadius: BorderRadius.circular(4),
                         ),
                       ),

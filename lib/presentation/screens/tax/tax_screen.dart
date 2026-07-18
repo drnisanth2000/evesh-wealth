@@ -7,6 +7,7 @@ import 'package:go_router/go_router.dart';
 import '../../../core/constants/app_constants.dart';
 import '../../../core/constants/asset_classes.dart';
 import '../../../core/extensions/date_extensions.dart';
+import '../../../core/extensions/string_extensions.dart';
 import '../../../core/extensions/number_extensions.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_palette.dart';
@@ -200,7 +201,7 @@ class _RealizedGainsTab extends ConsumerWidget {
                 Text('No redemptions in this FY',
                     style: TextStyle(color: context.palette.textSecondary, fontSize: 15)),
                 const SizedBox(height: 4),
-                Text(result.financialYear,
+                Text(result.financialYear.fyDisplay,
                     style: TextStyle(
                         color: context.palette.textTertiary, fontSize: 13)),
               ],
@@ -335,7 +336,7 @@ class _FilteredSummaryCard extends StatelessWidget {
                   color: AppColors.primary.withValues(alpha: 0.15),
                   borderRadius: BorderRadius.circular(6),
                 ),
-                child: Text(fy,
+                child: Text(fy.fyDisplay,
                     style: const TextStyle(
                         color: AppColors.primary,
                         fontSize: 11,
@@ -344,10 +345,10 @@ class _FilteredSummaryCard extends StatelessWidget {
               const Spacer(),
               Text(
                 'Est. Tax: ${totalTax.toINRCompact()}',
-                style: const TextStyle(
+                style: TextStyle(
                     fontSize: 13,
                     fontWeight: FontWeight.w700,
-                    color: AppColors.loss),
+                    color: context.palette.loss),
               ),
             ],
           ),
@@ -364,11 +365,11 @@ class _FilteredSummaryCard extends StatelessWidget {
             const SizedBox(height: 8),
             Row(
               children: [
-                Icon(Icons.shield_outlined, size: 13, color: AppColors.gain),
+                Icon(Icons.shield_outlined, size: 13, color: context.palette.gain),
                 const SizedBox(width: 4),
                 Text(
                   'Grandfathering saved ${grandfatheringBenefit.toINRCompact()}',
-                  style: const TextStyle(fontSize: 11, color: AppColors.gain),
+                  style: TextStyle(fontSize: 11, color: context.palette.gain),
                 ),
               ],
             ),
@@ -687,7 +688,7 @@ class _MemberTaxCardState extends ConsumerState<_MemberTaxCard> {
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 6, vertical: 2),
                             decoration: BoxDecoration(
-                              color: (isGain ? AppColors.gain : AppColors.loss)
+                              color: (isGain ? context.palette.gain : context.palette.loss)
                                   .withValues(alpha: 0.1),
                               borderRadius: BorderRadius.circular(4),
                             ),
@@ -696,7 +697,7 @@ class _MemberTaxCardState extends ConsumerState<_MemberTaxCard> {
                               style: TextStyle(
                                 fontSize: 11,
                                 fontWeight: FontWeight.w600,
-                                color: isGain ? AppColors.gain : AppColors.loss,
+                                color: isGain ? context.palette.gain : context.palette.loss,
                               ),
                             ),
                           ),
@@ -714,10 +715,10 @@ class _MemberTaxCardState extends ConsumerState<_MemberTaxCard> {
                                 color: context.palette.textTertiary,
                                 letterSpacing: 0.3)),
                         Text(member.totalTax.toINRCompact(),
-                            style: const TextStyle(
+                            style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w700,
-                                color: AppColors.loss)),
+                                color: context.palette.loss)),
                       ],
                     ),
                   Icon(
@@ -751,18 +752,18 @@ class _MemberTaxCardState extends ConsumerState<_MemberTaxCard> {
                     _TaxRow('Taxable LTCG',
                         member.equityLtcgTaxableGain.toINRCompact(),
                         color: member.equityLtcgTaxableGain > 0
-                            ? AppColors.loss
+                            ? context.palette.loss
                             : context.palette.textSecondary),
                     _TaxRow('LTCG Tax (12.5%)',
                         member.equityLtcgTax.toINRCompact(),
-                        color: AppColors.loss),
+                        color: context.palette.loss),
                   ],
                   if (member.equityStcgGain > 0) ...[
                     _TaxRow('STCG gains',
                         member.equityStcgGain.toINRCompact()),
                     _TaxRow('STCG Tax (20%)',
                         member.equityStcgTax.toINRCompact(),
-                        color: AppColors.loss),
+                        color: context.palette.loss),
                   ],
                 ],
                 // Gold/FoF section
@@ -775,14 +776,14 @@ class _MemberTaxCardState extends ConsumerState<_MemberTaxCard> {
                         member.goldLtcgGain.toINRCompact()),
                     _TaxRow('LTCG Tax (12.5%)',
                         member.goldLtcgTax.toINRCompact(),
-                        color: AppColors.loss),
+                        color: context.palette.loss),
                   ],
                   if (member.goldStcgGain > 0) ...[
                     _TaxRow('STCG gains (\u226424m)',
                         member.goldStcgGain.toINRCompact()),
                     _TaxRow('STCG Tax (slab)',
                         member.goldStcgTax.toINRCompact(),
-                        color: AppColors.loss),
+                        color: context.palette.loss),
                   ],
                 ],
                 // Debt section
@@ -794,7 +795,7 @@ class _MemberTaxCardState extends ConsumerState<_MemberTaxCard> {
                   _TaxRow(
                       'Tax (${(member.taxSlabPct * 100).toStringAsFixed(0)}%)',
                       member.debtSlabTax.toINRCompact(),
-                      color: AppColors.loss),
+                      color: context.palette.loss),
                 ],
 
                 // ── Total Tax footer ──
@@ -804,15 +805,15 @@ class _MemberTaxCardState extends ConsumerState<_MemberTaxCard> {
                   padding: const EdgeInsets.symmetric(
                       horizontal: 12, vertical: 8),
                   decoration: BoxDecoration(
-                    color: AppColors.loss.withValues(alpha: 0.06),
+                    color: context.palette.loss.withValues(alpha: 0.06),
                     borderRadius: BorderRadius.circular(8),
                     border: Border.all(
-                        color: AppColors.loss.withValues(alpha: 0.12)),
+                        color: context.palette.loss.withValues(alpha: 0.12)),
                   ),
                   child: Row(
                     children: [
-                      const Icon(Icons.receipt_outlined,
-                          size: 14, color: AppColors.loss),
+                      Icon(Icons.receipt_outlined,
+                          size: 14, color: context.palette.loss),
                       const SizedBox(width: 8),
                       Expanded(
                         child: Text('Cess (4%) + Total Tax',
@@ -828,10 +829,10 @@ class _MemberTaxCardState extends ConsumerState<_MemberTaxCard> {
                             color: context.palette.textTertiary),
                       ),
                       Text(member.totalTax.toINRCompact(),
-                          style: const TextStyle(
+                          style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w700,
-                              color: AppColors.loss)),
+                              color: context.palette.loss)),
                     ],
                   ),
                 ),
@@ -845,21 +846,21 @@ class _MemberTaxCardState extends ConsumerState<_MemberTaxCard> {
                       padding: const EdgeInsets.symmetric(
                           horizontal: 10, vertical: 6),
                       decoration: BoxDecoration(
-                        color: AppColors.gain.withValues(alpha: 0.06),
+                        color: context.palette.gain.withValues(alpha: 0.06),
                         borderRadius: BorderRadius.circular(8),
                         border: Border.all(
-                            color: AppColors.gain.withValues(alpha: 0.12)),
+                            color: context.palette.gain.withValues(alpha: 0.12)),
                       ),
                       child: Row(
                         children: [
-                          const Icon(Icons.shield_outlined,
-                              size: 14, color: AppColors.gain),
+                          Icon(Icons.shield_outlined,
+                              size: 14, color: context.palette.gain),
                           const SizedBox(width: 6),
                           Expanded(
                             child: Text(
                               'Grandfathering saved ${member.grandfatheringBenefit.toINRCompact()}',
-                              style: const TextStyle(
-                                  fontSize: 11, color: AppColors.gain),
+                              style: TextStyle(
+                                  fontSize: 11, color: context.palette.gain),
                             ),
                           ),
                         ],
@@ -896,19 +897,19 @@ class _MemberTaxCardState extends ConsumerState<_MemberTaxCard> {
                         const SizedBox(height: 6),
                         _TaxRow('Total realized losses',
                             '-${member.totalLoss.toINRCompact()}',
-                            color: AppColors.loss),
+                            color: context.palette.loss),
                         if (member.stLossOffsetVsStcg > 0)
                           _TaxRow('ST loss \u2192 STCG offset',
                               member.stLossOffsetVsStcg.toINRCompact(),
-                              color: AppColors.gain),
+                              color: context.palette.gain),
                         if (member.stLossOffsetVsLtcg > 0)
                           _TaxRow('ST loss \u2192 LTCG offset',
                               member.stLossOffsetVsLtcg.toINRCompact(),
-                              color: AppColors.gain),
+                              color: context.palette.gain),
                         if (member.ltLossOffsetVsLtcg > 0)
                           _TaxRow('LT loss \u2192 LTCG offset',
                               member.ltLossOffsetVsLtcg.toINRCompact(),
-                              color: AppColors.gain),
+                              color: context.palette.gain),
                         if (member.lossCarryForward > 0)
                           _TaxRow('Carry forward (8 yrs)',
                               member.lossCarryForward.toINRCompact(),
@@ -926,20 +927,20 @@ class _MemberTaxCardState extends ConsumerState<_MemberTaxCard> {
                       padding: const EdgeInsets.symmetric(
                           horizontal: 10, vertical: 6),
                       decoration: BoxDecoration(
-                        color: AppColors.gain.withValues(alpha: 0.06),
+                        color: context.palette.gain.withValues(alpha: 0.06),
                         borderRadius: BorderRadius.circular(8),
                         border: Border.all(
-                            color: AppColors.gain.withValues(alpha: 0.12)),
+                            color: context.palette.gain.withValues(alpha: 0.12)),
                       ),
                       child: Row(
                         children: [
-                          const Icon(Icons.savings_outlined,
-                              size: 14, color: AppColors.gain),
+                          Icon(Icons.savings_outlined,
+                              size: 14, color: context.palette.gain),
                           const SizedBox(width: 6),
                           Text(
                             '${member.unusedLtcgExemption.toINRCompact()} LTCG exemption remaining',
-                            style: const TextStyle(
-                                fontSize: 11, color: AppColors.gain),
+                            style: TextStyle(
+                                fontSize: 11, color: context.palette.gain),
                           ),
                         ],
                       ),
@@ -1049,7 +1050,7 @@ class _FundBreakdownTable extends StatelessWidget {
           ? context.palette.textSecondary
           : isDebt
               ? AppColors.warning
-              : (v >= 0 ? AppColors.gain : AppColors.loss);
+              : (v >= 0 ? context.palette.gain : context.palette.loss);
       return Expanded(
         flex: 2,
         child: Text(
@@ -1270,7 +1271,7 @@ class _AisVerifiedCardState extends State<_AisVerifiedCard> {
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            AppColors.gain.withValues(alpha: 0.05),
+            context.palette.gain.withValues(alpha: 0.05),
             context.palette.bgCard,
           ],
           begin: Alignment.topLeft,
@@ -1278,7 +1279,7 @@ class _AisVerifiedCardState extends State<_AisVerifiedCard> {
         ),
         borderRadius: BorderRadius.circular(14),
         border: Border.all(
-          color: AppColors.gain.withValues(alpha: 0.3),
+          color: context.palette.gain.withValues(alpha: 0.3),
         ),
       ),
       clipBehavior: Clip.antiAlias,
@@ -1290,13 +1291,13 @@ class _AisVerifiedCardState extends State<_AisVerifiedCard> {
             child: Container(
               decoration: BoxDecoration(
                 border: Border(
-                  left: BorderSide(color: AppColors.gain, width: 3),
+                  left: BorderSide(color: context.palette.gain, width: 3),
                 ),
               ),
               padding: const EdgeInsets.fromLTRB(12, 10, 14, 10),
               child: Row(
                 children: [
-                  Icon(Icons.verified, size: 18, color: AppColors.gain),
+                  Icon(Icons.verified, size: 18, color: context.palette.gain),
                   const SizedBox(width: 8),
                   Expanded(
                     child: Column(
@@ -1304,11 +1305,11 @@ class _AisVerifiedCardState extends State<_AisVerifiedCard> {
                       children: [
                         Row(
                           children: [
-                            const Text('AIS \u2014 Income Tax Dept',
+                            Text('AIS \u2014 Income Tax Dept',
                               style: TextStyle(
                                 fontSize: 13,
                                 fontWeight: FontWeight.w700,
-                                color: AppColors.gain,
+                                color: context.palette.gain,
                                 letterSpacing: 0.2,
                               ),
                             ),
@@ -1317,14 +1318,14 @@ class _AisVerifiedCardState extends State<_AisVerifiedCard> {
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 5, vertical: 1),
                               decoration: BoxDecoration(
-                                color: AppColors.gain.withValues(alpha: 0.12),
+                                color: context.palette.gain.withValues(alpha: 0.12),
                                 borderRadius: BorderRadius.circular(4),
                               ),
-                              child: Text(ais.financialYear,
+                              child: Text(ais.financialYear.fyDisplay,
                                 style: TextStyle(
                                   fontSize: 9,
                                   fontWeight: FontWeight.w600,
-                                  color: AppColors.gain,
+                                  color: context.palette.gain,
                                 ),
                               ),
                             ),
@@ -1335,7 +1336,7 @@ class _AisVerifiedCardState extends State<_AisVerifiedCard> {
                           padding: const EdgeInsets.symmetric(
                               horizontal: 6, vertical: 2),
                           decoration: BoxDecoration(
-                            color: (ais.totalGain >= 0 ? AppColors.gain : AppColors.loss)
+                            color: (ais.totalGain >= 0 ? context.palette.gain : context.palette.loss)
                                 .withValues(alpha: 0.1),
                             borderRadius: BorderRadius.circular(4),
                           ),
@@ -1344,7 +1345,7 @@ class _AisVerifiedCardState extends State<_AisVerifiedCard> {
                             style: TextStyle(
                               fontSize: 11,
                               fontWeight: FontWeight.w600,
-                              color: ais.totalGain >= 0 ? AppColors.gain : AppColors.loss,
+                              color: ais.totalGain >= 0 ? context.palette.gain : context.palette.loss,
                             ),
                           ),
                         ),
@@ -1360,16 +1361,16 @@ class _AisVerifiedCardState extends State<_AisVerifiedCard> {
                               color: context.palette.textTertiary,
                               letterSpacing: 0.3)),
                       Text(tax.totalTax.toINRCompact(),
-                          style: const TextStyle(
+                          style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w700,
-                              color: AppColors.loss)),
+                              color: context.palette.loss)),
                     ],
                   ),
                   Icon(
                     _expanded ? Icons.expand_less : Icons.expand_more,
                     size: 20,
-                    color: AppColors.gain,
+                    color: context.palette.gain,
                   ),
                 ],
               ),
@@ -1387,10 +1388,10 @@ class _AisVerifiedCardState extends State<_AisVerifiedCard> {
                   _SectionLabel('Stocks (${ais.stockSaleCount} sales)'),
                   if (ais.stockLtcg != 0)
                     _TaxRow('LTCG', ais.stockLtcg.toINRCompact(),
-                        color: ais.stockLtcg >= 0 ? AppColors.gain : AppColors.loss),
+                        color: ais.stockLtcg >= 0 ? context.palette.gain : context.palette.loss),
                   if (ais.stockStcg != 0)
                     _TaxRow('STCG', ais.stockStcg.toINRCompact(),
-                        color: ais.stockStcg >= 0 ? AppColors.gain : AppColors.loss),
+                        color: ais.stockStcg >= 0 ? context.palette.gain : context.palette.loss),
                 ],
 
                 // Equity MF
@@ -1400,10 +1401,10 @@ class _AisVerifiedCardState extends State<_AisVerifiedCard> {
                   _SectionLabel('Equity MF (${ais.equityMfSales.length} lots)'),
                   if (ais.eqMfLtcg != 0)
                     _TaxRow('LTCG', ais.eqMfLtcg.toINRCompact(),
-                        color: ais.eqMfLtcg >= 0 ? AppColors.gain : AppColors.loss),
+                        color: ais.eqMfLtcg >= 0 ? context.palette.gain : context.palette.loss),
                   if (ais.eqMfStcg != 0)
                     _TaxRow('STCG', ais.eqMfStcg.toINRCompact(),
-                        color: ais.eqMfStcg >= 0 ? AppColors.gain : AppColors.loss),
+                        color: ais.eqMfStcg >= 0 ? context.palette.gain : context.palette.loss),
                 ],
 
                 // Debt MF
@@ -1422,9 +1423,9 @@ class _AisVerifiedCardState extends State<_AisVerifiedCard> {
                   margin: const EdgeInsets.only(top: 4),
                   padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                   decoration: BoxDecoration(
-                    color: AppColors.loss.withValues(alpha: 0.06),
+                    color: context.palette.loss.withValues(alpha: 0.06),
                     borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: AppColors.loss.withValues(alpha: 0.12)),
+                    border: Border.all(color: context.palette.loss.withValues(alpha: 0.12)),
                   ),
                   child: Column(
                     children: [
@@ -1433,18 +1434,18 @@ class _AisVerifiedCardState extends State<_AisVerifiedCard> {
                         _TaxRow('Exemption (\u20b91.25L)',
                             (-tax.ltcgExemptionUsed).toINRCompact()),
                         _TaxRow('LTCG Tax (12.5%)', tax.equityLtcgTax.toINRCompact(),
-                            color: AppColors.loss),
+                            color: context.palette.loss),
                       ],
                       if (ais.totalEquityStcg > 0)
                         _TaxRow('STCG Tax (20%)', tax.equityStcgTax.toINRCompact(),
-                            color: AppColors.loss),
+                            color: context.palette.loss),
                       if (ais.debtMfStcg > 0 || ais.debtMfLtcg > 0)
                         _TaxRow('Debt Tax (slab)', (tax.debtStcgTax + tax.debtLtcgTax).toINRCompact(),
-                            color: AppColors.loss),
+                            color: context.palette.loss),
                       const Divider(height: 12),
-                      _TaxRow('Cess (4%)', tax.cess.toINRCompact(), color: AppColors.loss),
+                      _TaxRow('Cess (4%)', tax.cess.toINRCompact(), color: context.palette.loss),
                       _TaxRow('Total Tax', tax.totalTax.toINRCompact(),
-                          color: AppColors.loss, bold: true),
+                          color: context.palette.loss, bold: true),
                     ],
                   ),
                 ),
@@ -1478,7 +1479,7 @@ class _AisVerifiedCardState extends State<_AisVerifiedCard> {
                           _TaxRow('Interest', ais.totalInterest.toINRCompact()),
                         if (ais.totalTds > 0)
                           _TaxRow('TDS Deducted', ais.totalTds.toINRCompact(),
-                              color: AppColors.gain),
+                              color: context.palette.gain),
                       ],
                     ),
                   ),
@@ -1595,7 +1596,7 @@ class _CamsVerifiedPrimaryCardState extends State<_CamsVerifiedPrimaryCard> {
                       color: AppColors.primary.withValues(alpha: 0.15),
                       borderRadius: BorderRadius.circular(6),
                     ),
-                    child: Text(cams.financialYear,
+                    child: Text(cams.financialYear.fyDisplay,
                         style: const TextStyle(
                             fontSize: 11,
                             fontWeight: FontWeight.w700,
@@ -1635,7 +1636,7 @@ class _CamsVerifiedPrimaryCardState extends State<_CamsVerifiedPrimaryCard> {
                         style: TextStyle(
                           fontSize: 28,
                           fontWeight: FontWeight.w700,
-                          color: total >= 0 ? AppColors.gain : AppColors.loss,
+                          color: total >= 0 ? context.palette.gain : context.palette.loss,
                         ),
                       ),
                       const SizedBox(height: 10),
@@ -1686,18 +1687,18 @@ class _CamsVerifiedPrimaryCardState extends State<_CamsVerifiedPrimaryCard> {
                               (cg.eqLtcg - tax.ltcgExemptionUsed)
                                   .toINRCompact(),
                               color: (cg.eqLtcg - tax.ltcgExemptionUsed) > 0
-                                  ? AppColors.loss
+                                  ? context.palette.loss
                                   : context.palette.textSecondary),
                           _TaxRow('LTCG Tax (12.5%)',
                               tax.equityLtcgTax.toINRCompact(),
-                              color: AppColors.loss),
+                              color: context.palette.loss),
                         ],
                         if (cg.eqStcg > 0) ...[
                           _TaxRow('STCG gains',
                               cg.eqStcg.toINRCompact()),
                           _TaxRow('STCG Tax (20%)',
                               tax.equityStcgTax.toINRCompact(),
-                              color: AppColors.loss),
+                              color: context.palette.loss),
                         ],
                       ],
                       // Debt / Gold section
@@ -1711,14 +1712,14 @@ class _CamsVerifiedPrimaryCardState extends State<_CamsVerifiedPrimaryCard> {
                           _TaxRow(
                               'STCG Tax (${(slabRate * 100).toStringAsFixed(0)}%)',
                               tax.nonEquityStcgTax.toINRCompact(),
-                              color: AppColors.loss),
+                              color: context.palette.loss),
                         ],
                         if (cg.neLtcg > 0) ...[
                           _TaxRow('LTCG gains',
                               cg.neLtcg.toINRCompact()),
                           _TaxRow('LTCG Tax (12.5%)',
                               tax.nonEquityLtcgTax.toINRCompact(),
-                              color: AppColors.loss),
+                              color: context.palette.loss),
                         ],
                       ],
                       // Cess & Total footer
@@ -1728,15 +1729,15 @@ class _CamsVerifiedPrimaryCardState extends State<_CamsVerifiedPrimaryCard> {
                         padding: const EdgeInsets.symmetric(
                             horizontal: 12, vertical: 8),
                         decoration: BoxDecoration(
-                          color: AppColors.loss.withValues(alpha: 0.06),
+                          color: context.palette.loss.withValues(alpha: 0.06),
                           borderRadius: BorderRadius.circular(8),
                           border: Border.all(
-                              color: AppColors.loss.withValues(alpha: 0.12)),
+                              color: context.palette.loss.withValues(alpha: 0.12)),
                         ),
                         child: Row(
                           children: [
-                            const Icon(Icons.receipt_outlined,
-                                size: 14, color: AppColors.loss),
+                            Icon(Icons.receipt_outlined,
+                                size: 14, color: context.palette.loss),
                             const SizedBox(width: 8),
                             Expanded(
                               child: Text('Cess (4%) + Total Tax',
@@ -1752,10 +1753,10 @@ class _CamsVerifiedPrimaryCardState extends State<_CamsVerifiedPrimaryCard> {
                                   color: context.palette.textTertiary),
                             ),
                             Text(tax.totalTax.toINRCompact(),
-                                style: const TextStyle(
+                                style: TextStyle(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w700,
-                                    color: AppColors.loss)),
+                                    color: context.palette.loss)),
                           ],
                         ),
                       ),
@@ -1768,20 +1769,20 @@ class _CamsVerifiedPrimaryCardState extends State<_CamsVerifiedPrimaryCard> {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                   decoration: BoxDecoration(
-                    color: AppColors.gain.withValues(alpha: 0.06),
+                    color: context.palette.gain.withValues(alpha: 0.06),
                     borderRadius: BorderRadius.circular(8),
                     border: Border.all(
-                        color: AppColors.gain.withValues(alpha: 0.12)),
+                        color: context.palette.gain.withValues(alpha: 0.12)),
                   ),
                   child: Row(
                     children: [
-                      const Icon(Icons.check_circle,
-                          size: 14, color: AppColors.gain),
+                      Icon(Icons.check_circle,
+                          size: 14, color: context.palette.gain),
                       const SizedBox(width: 6),
-                      const Expanded(
+                      Expanded(
                         child: Text(
                           'Use this data for ITR filing \u2014 matches registrar records.',
-                          style: TextStyle(fontSize: 11, color: AppColors.gain),
+                          style: TextStyle(fontSize: 11, color: context.palette.gain),
                         ),
                       ),
                     ],
@@ -1850,7 +1851,7 @@ class _CamsSchemeTable extends StatelessWidget {
           ? context.palette.textSecondary
           : isDebt
               ? AppColors.warning
-              : (v >= 0 ? AppColors.gain : AppColors.loss);
+              : (v >= 0 ? context.palette.gain : context.palette.loss);
       return Expanded(
         flex: 2,
         child: Text(
@@ -2047,8 +2048,8 @@ class _CamsVsFifoComparisonState extends State<_CamsVsFifoComparison> {
     final diffColor = diff.abs() < 0.5
         ? context.palette.textTertiary
         : diff > 0
-            ? AppColors.gain
-            : AppColors.loss;
+            ? context.palette.gain
+            : context.palette.loss;
     final fw = isBold ? FontWeight.w700 : FontWeight.w400;
     const fs = 10.0;
 
@@ -2306,10 +2307,10 @@ class _CamsVsFifoComparisonState extends State<_CamsVsFifoComparison> {
         color = v.abs() < 0.5
             ? context.palette.textTertiary
             : v > 0
-                ? AppColors.gain
-                : AppColors.loss;
+                ? context.palette.gain
+                : context.palette.loss;
       } else {
-        color = isTax ? AppColors.loss : context.palette.textSecondary;
+        color = isTax ? context.palette.loss : context.palette.textSecondary;
       }
       return Expanded(
         flex: 2,
@@ -2476,8 +2477,8 @@ class _CamsVsFifoComparisonState extends State<_CamsVsFifoComparison> {
                   final diffColor = diff.abs() < 0.5
                       ? context.palette.textTertiary
                       : diff > 0
-                          ? AppColors.gain
-                          : AppColors.loss;
+                          ? context.palette.gain
+                          : context.palette.loss;
                   final costDiff = f.fifoCost - f.camsCost;
                   final procDiff = f.fifoProceeds - f.camsProceeds;
                   final stcgDiff = f.fifoStcg - f.camsStcg;
@@ -2525,7 +2526,7 @@ class _CamsVsFifoComparisonState extends State<_CamsVsFifoComparison> {
                                 fontSize: 12,
                                 fontWeight: FontWeight.w700,
                                 color: diff.abs() < 0.5
-                                    ? AppColors.gain
+                                    ? context.palette.gain
                                     : diffColor,
                               ),
                             ),
@@ -2796,8 +2797,8 @@ class _UnrealizedExposureTabState
                       fontSize: 26,
                       fontWeight: FontWeight.w700,
                       color: totalGain >= 0
-                          ? AppColors.gain
-                          : AppColors.loss,
+                          ? context.palette.gain
+                          : context.palette.loss,
                     ),
                   ),
                   const SizedBox(height: 8),
@@ -2806,7 +2807,7 @@ class _UnrealizedExposureTabState
                       _ExposureChip(
                           'Est. Tax if Sold Today',
                           totalTax.toINRCompact(),
-                          AppColors.loss),
+                          context.palette.loss),
                       if (soonCount > 0) ...[
                         const SizedBox(width: 12),
                         _ExposureChip(
@@ -2911,7 +2912,7 @@ class _ExposureCardState extends State<_ExposureCard> {
   Widget build(BuildContext context) {
     final e = widget.exposure;
     final isProfit = e.unrealisedGain >= 0;
-    final gainColor = isProfit ? AppColors.gain : AppColors.loss;
+    final gainColor = isProfit ? context.palette.gain : context.palette.loss;
     final gainPct = e.costBasis > 0
         ? (e.unrealisedGain / e.costBasis) * 100
         : 0.0;
@@ -2920,7 +2921,7 @@ class _ExposureCardState extends State<_ExposureCard> {
     Color badgeColor;
     switch (e.gainType) {
       case 'LTCG':
-        badgeColor = AppColors.gain;
+        badgeColor = context.palette.gain;
         break;
       case 'STCG':
         badgeColor = AppColors.warning;
@@ -3027,7 +3028,7 @@ class _ExposureCardState extends State<_ExposureCard> {
                 Row(
                   children: [
                     _ExposureStat('Est. Tax', e.estimatedTax.toINRCompact(),
-                        AppColors.loss),
+                        context.palette.loss),
                     const SizedBox(width: 16),
                     _ExposureStat('Units', e.totalUnits.toStringAsFixed(2),
                         context.palette.textSecondary),
@@ -3148,10 +3149,10 @@ class _WhatIfRedemptionSection extends StatelessWidget {
           // ── Gains breakdown ──
           _WhatIfRow(
             icon: Icons.trending_up,
-            iconColor: isProfit ? AppColors.gain : AppColors.loss,
+            iconColor: isProfit ? context.palette.gain : context.palette.loss,
             label: 'Gains',
             value: totalGain.toINRCompact(),
-            valueColor: isProfit ? AppColors.gain : AppColors.loss,
+            valueColor: isProfit ? context.palette.gain : context.palette.loss,
             isBold: true,
           ),
           if (hasStcg) ...[
@@ -3159,7 +3160,7 @@ class _WhatIfRedemptionSection extends StatelessWidget {
             _WhatIfSubRow(
               label: 'Short Term Gains',
               value: e.stcgGain.toINRCompact(),
-              valueColor: e.stcgGain >= 0 ? AppColors.gain : AppColors.loss,
+              valueColor: e.stcgGain >= 0 ? context.palette.gain : context.palette.loss,
               taxRate: '@ ${(e.stcgTaxRate * 100).toStringAsFixed(0)}%',
             ),
           ],
@@ -3168,7 +3169,7 @@ class _WhatIfRedemptionSection extends StatelessWidget {
             _WhatIfSubRow(
               label: 'Long Term Gains',
               value: e.ltcgGain.toINRCompact(),
-              valueColor: e.ltcgGain >= 0 ? AppColors.gain : AppColors.loss,
+              valueColor: e.ltcgGain >= 0 ? context.palette.gain : context.palette.loss,
               taxRate: '@ ${(e.ltcgTaxRate * 100).toStringAsFixed(1)}%',
             ),
           ],
@@ -3180,10 +3181,10 @@ class _WhatIfRedemptionSection extends StatelessWidget {
           // ── Tax breakdown ──
           _WhatIfRow(
             icon: Icons.account_balance,
-            iconColor: AppColors.loss,
+            iconColor: context.palette.loss,
             label: 'Total Tax',
             value: e.estimatedTax.toINRCompact(),
-            valueColor: AppColors.loss,
+            valueColor: context.palette.loss,
             isBold: true,
           ),
           if (hasStcg && e.stcgTax > 0) ...[
@@ -3191,7 +3192,7 @@ class _WhatIfRedemptionSection extends StatelessWidget {
             _WhatIfSubRow(
               label: 'STCG Tax',
               value: e.stcgTax.toINRCompact(),
-              valueColor: AppColors.loss,
+              valueColor: context.palette.loss,
             ),
           ],
           if (hasLtcg && e.ltcgTax > 0) ...[
@@ -3199,7 +3200,7 @@ class _WhatIfRedemptionSection extends StatelessWidget {
             _WhatIfSubRow(
               label: 'LTCG Tax',
               value: e.ltcgTax.toINRCompact(),
-              valueColor: AppColors.loss,
+              valueColor: context.palette.loss,
             ),
           ],
 
@@ -3210,10 +3211,10 @@ class _WhatIfRedemptionSection extends StatelessWidget {
           // ── Post-tax gains ──
           _WhatIfRow(
             icon: Icons.savings_outlined,
-            iconColor: e.postTaxGain >= 0 ? AppColors.gain : AppColors.loss,
+            iconColor: e.postTaxGain >= 0 ? context.palette.gain : context.palette.loss,
             label: 'Post Tax Gains',
             value: e.postTaxGain.toINRCompact(),
-            valueColor: e.postTaxGain >= 0 ? AppColors.gain : AppColors.loss,
+            valueColor: e.postTaxGain >= 0 ? context.palette.gain : context.palette.loss,
             isBold: true,
           ),
 
@@ -3262,10 +3263,10 @@ class _WhatIfRedemptionSection extends StatelessWidget {
             const SizedBox(height: 10),
             _WhatIfRow(
               icon: Icons.exit_to_app,
-              iconColor: AppColors.gain,
+              iconColor: context.palette.gain,
               label: 'Exit Load',
               value: 'Nil',
-              valueColor: AppColors.gain,
+              valueColor: context.palette.gain,
               isBold: true,
             ),
           ],
@@ -3275,11 +3276,11 @@ class _WhatIfRedemptionSection extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
-              color: (e.postTaxGain >= 0 ? AppColors.gain : AppColors.loss)
+              color: (e.postTaxGain >= 0 ? context.palette.gain : context.palette.loss)
                   .withValues(alpha: 0.08),
               borderRadius: BorderRadius.circular(8),
               border: Border.all(
-                color: (e.postTaxGain >= 0 ? AppColors.gain : AppColors.loss)
+                color: (e.postTaxGain >= 0 ? context.palette.gain : context.palette.loss)
                     .withValues(alpha: 0.2),
               ),
             ),
@@ -3742,12 +3743,12 @@ class _BookedLtcgBanner extends StatelessWidget {
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
         color: exhausted
-            ? AppColors.loss.withValues(alpha: 0.08)
+            ? context.palette.loss.withValues(alpha: 0.08)
             : AppColors.primary.withValues(alpha: 0.08),
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
           color: exhausted
-              ? AppColors.loss.withValues(alpha: 0.3)
+              ? context.palette.loss.withValues(alpha: 0.3)
               : AppColors.primary.withValues(alpha: 0.3),
         ),
       ),
@@ -3758,7 +3759,7 @@ class _BookedLtcgBanner extends StatelessWidget {
             children: [
               Icon(Icons.verified,
                   size: 16,
-                  color: exhausted ? AppColors.loss : AppColors.primary),
+                  color: exhausted ? context.palette.loss : AppColors.primary),
               const SizedBox(width: 6),
               Text('LTCG Exemption Status (Registrar Verified)',
                   style: TextStyle(
@@ -3776,7 +3777,7 @@ class _BookedLtcgBanner extends StatelessWidget {
               minHeight: 8,
               backgroundColor: context.palette.textTertiary.withValues(alpha: 0.2),
               valueColor: AlwaysStoppedAnimation(
-                  exhausted ? AppColors.loss : AppColors.primary),
+                  exhausted ? context.palette.loss : AppColors.primary),
             ),
           ),
           const SizedBox(height: 8),
@@ -3788,7 +3789,7 @@ class _BookedLtcgBanner extends StatelessWidget {
                 style: TextStyle(
                     fontSize: 11,
                     fontWeight: FontWeight.w600,
-                    color: exhausted ? AppColors.loss : AppColors.primary),
+                    color: exhausted ? context.palette.loss : AppColors.primary),
               ),
               Text(
                 'of ${limit.toINRCompact()} limit',
@@ -3804,7 +3805,7 @@ class _BookedLtcgBanner extends StatelessWidget {
                 : '${remaining.toINRCompact()} remaining \u2014 you can book more equity LTCG tax-free this FY.',
             style: TextStyle(
               fontSize: 11,
-              color: exhausted ? AppColors.loss : AppColors.gain,
+              color: exhausted ? context.palette.loss : context.palette.gain,
               height: 1.4,
             ),
           ),
@@ -3821,7 +3822,7 @@ class _NoHarvestPlaceholder extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(Icons.eco_outlined, size: 48, color: AppColors.gain),
+          Icon(Icons.eco_outlined, size: 48, color: context.palette.gain),
           const SizedBox(height: 12),
           Text('No harvest opportunities found',
               style: TextStyle(
@@ -3859,29 +3860,29 @@ class _GainHarvestSummary extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: AppColors.gain.withValues(alpha: 0.08),
+        color: context.palette.gain.withValues(alpha: 0.08),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: AppColors.gain.withValues(alpha: 0.3)),
+        border: Border.all(color: context.palette.gain.withValues(alpha: 0.3)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
-              Icon(Icons.eco, size: 16, color: AppColors.gain),
+              Icon(Icons.eco, size: 16, color: context.palette.gain),
               const SizedBox(width: 6),
-              const Text('LTCG Gain Harvesting',
+              Text('LTCG Gain Harvesting',
                   style: TextStyle(
                       fontSize: 13,
                       fontWeight: FontWeight.w600,
-                      color: AppColors.gain)),
+                      color: context.palette.gain)),
               const Spacer(),
               Text(
                 'Save up to ${totalSaving.toINRCompact()}',
-                style: const TextStyle(
+                style: TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.w700,
-                    color: AppColors.gain),
+                    color: context.palette.gain),
               ),
             ],
           ),
@@ -3931,14 +3932,14 @@ class _GainHarvestCard extends StatelessWidget {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                   decoration: BoxDecoration(
-                    color: AppColors.gain.withValues(alpha: 0.12),
+                    color: context.palette.gain.withValues(alpha: 0.12),
                     borderRadius: BorderRadius.circular(6),
                   ),
-                  child: const Text('LTCG',
+                  child: Text('LTCG',
                       style: TextStyle(
                           fontSize: 10,
                           fontWeight: FontWeight.w700,
-                          color: AppColors.gain)),
+                          color: context.palette.gain)),
                 ),
               ],
             ),
@@ -3964,7 +3965,7 @@ class _GainHarvestCard extends StatelessWidget {
                   child: _HarvestStat(
                     'Unrealised Gain',
                     '${o.unrealisedGain.toINRCompact()} (+${o.gainPct.toStringAsFixed(1)}%)',
-                    AppColors.gain,
+                    context.palette.gain,
                   ),
                 ),
               ],
@@ -4053,7 +4054,7 @@ class _GainHarvestCard extends StatelessWidget {
               const SizedBox(height: 4),
               Text(
                 'No exit load \u2014 held > ${o.exitLoadDays} days',
-                style: const TextStyle(fontSize: 9, color: AppColors.gain, fontStyle: FontStyle.italic),
+                style: TextStyle(fontSize: 9, color: context.palette.gain, fontStyle: FontStyle.italic),
               ),
             ],
           ],
@@ -4074,29 +4075,29 @@ class _LossHarvestSummary extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: AppColors.loss.withValues(alpha: 0.06),
+        color: context.palette.loss.withValues(alpha: 0.06),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: AppColors.loss.withValues(alpha: 0.2)),
+        border: Border.all(color: context.palette.loss.withValues(alpha: 0.2)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
-              Icon(Icons.trending_down, size: 16, color: AppColors.loss),
+              Icon(Icons.trending_down, size: 16, color: context.palette.loss),
               const SizedBox(width: 6),
-              const Text('Loss Harvesting',
+              Text('Loss Harvesting',
                   style: TextStyle(
                       fontSize: 13,
                       fontWeight: FontWeight.w600,
-                      color: AppColors.loss)),
+                      color: context.palette.loss)),
               const Spacer(),
               Text(
                 '\u20b9${totalLoss.toStringAsFixed(0)} offsettable',
-                style: const TextStyle(
+                style: TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.w700,
-                    color: AppColors.loss),
+                    color: context.palette.loss),
               ),
             ],
           ),
@@ -4142,7 +4143,7 @@ class _LossHarvestCard extends StatelessWidget {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                   decoration: BoxDecoration(
-                    color: (loss.isLongTerm ? AppColors.warning : AppColors.loss)
+                    color: (loss.isLongTerm ? AppColors.warning : context.palette.loss)
                         .withValues(alpha: 0.12),
                     borderRadius: BorderRadius.circular(6),
                   ),
@@ -4152,7 +4153,7 @@ class _LossHarvestCard extends StatelessWidget {
                           fontWeight: FontWeight.w700,
                           color: loss.isLongTerm
                               ? AppColors.warning
-                              : AppColors.loss)),
+                              : context.palette.loss)),
                 ),
               ],
             ),
@@ -4186,14 +4187,14 @@ class _LossHarvestCard extends StatelessWidget {
                     Row(
                       children: [
                         Icon(Icons.arrow_downward,
-                            size: 10, color: AppColors.loss),
+                            size: 10, color: context.palette.loss),
                         Text(
                           '-${loss.unrealisedLoss.toINRCompact()} '
                           '(-${loss.lossPct.toStringAsFixed(1)}%)',
-                          style: const TextStyle(
+                          style: TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.w600,
-                              color: AppColors.loss),
+                              color: context.palette.loss),
                         ),
                       ],
                     ),
@@ -4305,7 +4306,7 @@ class _LossOffsetRulesCard extends StatelessWidget {
           const SizedBox(height: 10),
           _RuleRow(
             icon: Icons.check_circle,
-            color: AppColors.gain,
+            color: context.palette.gain,
             text: 'Short-term loss can offset both STCG and LTCG',
           ),
           _RuleRow(
@@ -4325,7 +4326,7 @@ class _LossOffsetRulesCard extends StatelessWidget {
           ),
           _RuleRow(
             icon: Icons.check,
-            color: AppColors.gain,
+            color: context.palette.gain,
             text: 'No wash sale rule for MFs in India \u2014 re-buy immediately is allowed',
           ),
         ],

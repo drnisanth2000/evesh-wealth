@@ -125,7 +125,7 @@ class AssetAllocationSliders extends StatelessWidget {
                   'Total is ${total.toStringAsFixed(1)}% — adjust to reach 100%',
                   style: TextStyle(
                     fontSize: 10,
-                    color: total > 100 ? AppColors.loss : AppColors.warning,
+                    color: total > 100 ? context.palette.loss : AppColors.warning,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
@@ -148,9 +148,9 @@ class _TotalBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final barColor = isBalanced
-        ? AppColors.gain
+        ? context.palette.gain
         : total > 100
-            ? AppColors.loss
+            ? context.palette.loss
             : AppColors.warning;
     final fillFraction = (total / 100).clamp(0.0, 1.2);
 
@@ -169,15 +169,15 @@ class _TotalBar extends StatelessWidget {
               ),
             ),
             if (isBalanced)
-              const Row(
+              Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Icon(Icons.check_circle, size: 12, color: AppColors.gain),
+                  Icon(Icons.check_circle, size: 12, color: context.palette.gain),
                   SizedBox(width: 3),
                   Text('Balanced',
                       style: TextStyle(
                           fontSize: 10,
-                          color: AppColors.gain,
+                          color: context.palette.gain,
                           fontWeight: FontWeight.w500)),
                 ],
               ),
@@ -330,7 +330,7 @@ class _AssetClassSliderRowState extends State<_AssetClassSliderRow> {
                     fontSize: 9,
                     fontWeight: FontWeight.w600,
                     color: diff.abs() > 5
-                        ? (diff > 0 ? AppColors.gain : AppColors.loss)
+                        ? (diff > 0 ? context.palette.gain : context.palette.loss)
                         : context.palette.textSecondary,
                   ),
                 ),

@@ -32,7 +32,7 @@ class HoldingRow extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final navChange = holding.nav1dChangePct ?? 0;
-    final changeColor = navChange >= 0 ? AppColors.gain : AppColors.loss;
+    final changeColor = navChange >= 0 ? context.palette.gain : context.palette.loss;
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),

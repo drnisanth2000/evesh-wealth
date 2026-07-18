@@ -31,9 +31,9 @@ class SimulationSummaryCard extends StatelessWidget {
     final deltaPositive = delta > 0;
     final deltaSign = deltaPositive ? '+' : '';
     final healthColor = delta > 0
-        ? AppColors.gain
+        ? context.palette.gain
         : delta < 0
-            ? AppColors.loss
+            ? context.palette.loss
             : context.palette.textSecondary;
 
     return Card(

@@ -21,7 +21,7 @@ class TotalAllocationIndicator extends StatelessWidget {
   Widget build(BuildContext context) {
     final delta = total - 100.0;
     final isBalanced = delta.abs() < 0.5;
-    final color = isBalanced ? AppColors.gain : AppColors.loss;
+    final color = isBalanced ? context.palette.gain : context.palette.loss;
     final label = isBalanced
         ? 'Balanced 100%'
         : 'Total ${total.toStringAsFixed(1)}% '

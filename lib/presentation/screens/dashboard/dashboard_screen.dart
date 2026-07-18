@@ -86,7 +86,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      const Icon(Icons.error_outline, color: AppColors.loss, size: 48),
+                      Icon(Icons.error_outline, color: context.palette.loss, size: 48),
                       const SizedBox(height: 12),
                       Text('Error loading portfolio', style: TextStyle(color: context.palette.textSecondary)),
                       const SizedBox(height: 8),
@@ -162,7 +162,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                                 ? portfolio.xirr!.toPercent()
                                 : '—',
                             valueColor: portfolio.xirr != null && portfolio.xirr! > 0
-                                ? AppColors.gain
+                                ? context.palette.gain
                                 : context.palette.textSecondary,
                             tooltip: 'Extended Internal Rate of Return — true annualised return accounting for timing',
                           ),
@@ -175,7 +175,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                                 ? portfolio.cagr!.toPercent()
                                 : '—',
                             valueColor: portfolio.cagr != null && portfolio.cagr! > 0
-                                ? AppColors.gain
+                                ? context.palette.gain
                                 : context.palette.textSecondary,
                             tooltip: 'Compound Annual Growth Rate',
                           ),
@@ -453,7 +453,8 @@ class _HeroKPISection extends StatelessWidget {
               _KpiChip(
                 label: 'Total Gain',
                 value: '${gain >= 0 ? '+' : ''}${gain.toINRCompact()}  (${gainPct.toReturnLabel()})',
-                color: gain >= 0 ? AppColors.gain : AppColors.loss,
+                color: gain >= 0 ? context.palette.gain : context.palette.loss,
+                emphasized: true,
               ),
             ],
           ),
@@ -462,7 +463,7 @@ class _HeroKPISection extends StatelessWidget {
             _KpiChip(
               label: "Today's change",
               value: '${todayGain >= 0 ? '+' : ''}${todayGain.toINRCompact()} (${todayGainPct.toReturnLabel()})',
-              color: todayGain >= 0 ? AppColors.gain : AppColors.loss,
+              color: todayGain >= 0 ? context.palette.gain : context.palette.loss,
             ),
           ],
         ],
@@ -472,19 +473,32 @@ class _HeroKPISection extends StatelessWidget {
 }
 
 class _KpiChip extends StatelessWidget {
-  const _KpiChip({required this.label, required this.value, required this.color});
+  const _KpiChip({
+    required this.label,
+    required this.value,
+    required this.color,
+    this.emphasized = false,
+  });
   final String label;
   final String value;
   final Color color;
+  final bool emphasized;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(label, style: TextStyle(color: context.palette.textTertiary, fontSize: 11)),
+        Text(label,
+            style: TextStyle(
+                color: context.palette.textTertiary,
+                fontSize: emphasized ? 12 : 11)),
         const SizedBox(height: 2),
-        Text(value, style: TextStyle(color: color, fontSize: 13, fontWeight: FontWeight.w600)),
+        Text(value,
+            style: TextStyle(
+                color: color,
+                fontSize: emphasized ? 18 : 13,
+                fontWeight: emphasized ? FontWeight.w700 : FontWeight.w600)),
       ],
     );
   }
@@ -499,7 +513,7 @@ class _QuickActions extends StatelessWidget {
       children: [
         _QuickActionButton(icon: Icons.calculate_outlined, label: 'Tax', route: Routes.tax),
         _QuickActionButton(icon: Icons.balance_outlined, label: 'Rebalance', route: Routes.wealthPlannerRebalance),
-        _QuickActionButton(icon: Icons.lightbulb_outlined, label: 'Deploy', route: Routes.wealthPlannerRebalance),
+        _QuickActionButton(icon: Icons.flag_outlined, label: 'Goals', route: Routes.wealthPlannerGoals),
         _QuickActionButton(icon: Icons.search_outlined, label: 'Screener', route: Routes.marketIntel),
       ],
     );
@@ -588,7 +602,7 @@ class _FundHoldingTile extends StatelessWidget {
             gainPct.toReturnLabel(),
             style: TextStyle(
               fontSize: 12,
-              color: gain >= 0 ? AppColors.gain : AppColors.loss,
+              color: gain >= 0 ? context.palette.gain : context.palette.loss,
               fontWeight: FontWeight.w500,
             ),
           ),

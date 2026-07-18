@@ -31,7 +31,12 @@ class MainShell extends ConsumerWidget {
     final selectedIdx = _selectedIndex(context);
 
     return Scaffold(
-      body: child,
+      body: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 1100),
+          child: child,
+        ),
+      ),
       bottomNavigationBar: NavigationBar(
         selectedIndex: selectedIdx,
         onDestinationSelected: (idx) {

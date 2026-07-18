@@ -118,9 +118,9 @@ class _UploadMfCentralScreenState
     final name = _nameCtrl.text.trim();
     if (pan == null || name.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
+        SnackBar(
           content: Text('Name is required'),
-          backgroundColor: AppColors.loss,
+          backgroundColor: context.palette.loss,
         ),
       );
       return;
@@ -176,7 +176,7 @@ class _UploadMfCentralScreenState
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('$name added as family member'),
-          backgroundColor: AppColors.gain,
+          backgroundColor: context.palette.gain,
         ),
       );
     } catch (e) {
@@ -185,7 +185,7 @@ class _UploadMfCentralScreenState
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('Failed to add member: $e'),
-          backgroundColor: AppColors.loss,
+          backgroundColor: context.palette.loss,
         ),
       );
     }
@@ -217,7 +217,7 @@ class _UploadMfCentralScreenState
           ),
           TextButton(
             onPressed: () => Navigator.of(ctx).pop(true),
-            style: TextButton.styleFrom(foregroundColor: AppColors.loss),
+            style: TextButton.styleFrom(foregroundColor: context.palette.loss),
             child: const Text('Delete'),
           ),
         ],
@@ -256,7 +256,7 @@ class _UploadMfCentralScreenState
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('Transactions for $memberName cleared'),
-          backgroundColor: AppColors.gain,
+          backgroundColor: context.palette.gain,
         ),
       );
     } catch (e) {
@@ -264,7 +264,7 @@ class _UploadMfCentralScreenState
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('Failed to clear: $e'),
-          backgroundColor: AppColors.loss,
+          backgroundColor: context.palette.loss,
         ),
       );
     }
@@ -447,7 +447,7 @@ class _UploadMfCentralScreenState
         SnackBar(
           content: Text(msg),
           backgroundColor:
-              importResult.inserted > 0 ? AppColors.gain : context.palette.textSecondary,
+              importResult.inserted > 0 ? context.palette.gain : context.palette.textSecondary,
           duration: const Duration(seconds: 4),
         ),
       );
@@ -460,7 +460,7 @@ class _UploadMfCentralScreenState
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('Import failed: $e'),
-          backgroundColor: AppColors.loss,
+          backgroundColor: context.palette.loss,
           duration: const Duration(seconds: 5),
         ),
       );
@@ -540,7 +540,7 @@ class _UploadMfCentralScreenState
                               padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                               decoration: BoxDecoration(
                                 color: score >= 80
-                                    ? AppColors.gain.withOpacity(0.1)
+                                    ? context.palette.gain.withOpacity(0.1)
                                     : Colors.orange.withOpacity(0.1),
                                 borderRadius: BorderRadius.circular(4),
                               ),
@@ -549,7 +549,7 @@ class _UploadMfCentralScreenState
                                 style: TextStyle(
                                   fontSize: 11,
                                   fontWeight: FontWeight.w600,
-                                  color: score >= 80 ? AppColors.gain : Colors.orange.shade700,
+                                  color: score >= 80 ? context.palette.gain : Colors.orange.shade700,
                                 ),
                               ),
                             ),
@@ -649,7 +649,7 @@ class _UploadMfCentralScreenState
               ? '$updated transactions updated with ISIN mappings'
               : '$updated updated, ${errors.length} errors',
         ),
-        backgroundColor: errors.isEmpty ? AppColors.gain : Colors.orange,
+        backgroundColor: errors.isEmpty ? context.palette.gain : Colors.orange,
         duration: const Duration(seconds: 4),
       ),
     );
@@ -863,19 +863,19 @@ class _UploadMfCentralScreenState
                   margin: const EdgeInsets.only(bottom: 12),
                   padding: const EdgeInsets.all(14),
                   decoration: BoxDecoration(
-                    color: AppColors.loss.withOpacity(0.08),
+                    color: context.palette.loss.withOpacity(0.08),
                     borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color: AppColors.loss.withOpacity(0.4)),
+                    border: Border.all(color: context.palette.loss.withOpacity(0.4)),
                   ),
                   child: Row(
                     children: [
-                      const Icon(Icons.warning_amber_rounded, color: AppColors.loss, size: 22),
+                      Icon(Icons.warning_amber_rounded, color: context.palette.loss, size: 22),
                       const SizedBox(width: 10),
                       Expanded(
                         child: Text(
                           '${_result!.validation.where((v) => v['match'] != true).length} folio(s) have unit balance discrepancies. '
                           'Check the validation details below — a re-upload with a newer CAS may fix this.',
-                          style: const TextStyle(fontSize: 12, color: AppColors.loss, height: 1.4),
+                          style: TextStyle(fontSize: 12, color: context.palette.loss, height: 1.4),
                         ),
                       ),
                     ],
@@ -958,13 +958,13 @@ class _UploadMfCentralScreenState
               Container(
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                  color: AppColors.loss.withOpacity(0.08),
+                  color: context.palette.loss.withOpacity(0.08),
                   borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: AppColors.loss.withOpacity(0.3)),
+                  border: Border.all(color: context.palette.loss.withOpacity(0.3)),
                 ),
                 child: Text(
                   _error!,
-                  style: const TextStyle(color: AppColors.loss, fontSize: 13, height: 1.5),
+                  style: TextStyle(color: context.palette.loss, fontSize: 13, height: 1.5),
                 ),
               ),
 
@@ -980,8 +980,8 @@ class _UploadMfCentralScreenState
                     : 'Clear Imported Transactions',
               ),
               style: OutlinedButton.styleFrom(
-                foregroundColor: AppColors.loss,
-                side: BorderSide(color: AppColors.loss.withOpacity(0.4)),
+                foregroundColor: context.palette.loss,
+                side: BorderSide(color: context.palette.loss.withOpacity(0.4)),
                 minimumSize: const Size.fromHeight(44),
               ),
             ),
@@ -1055,13 +1055,13 @@ class _MatchedBanner extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
-        color: AppColors.gain.withOpacity(0.1),
+        color: context.palette.gain.withOpacity(0.1),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: AppColors.gain.withOpacity(0.4)),
+        border: Border.all(color: context.palette.gain.withOpacity(0.4)),
       ),
       child: Row(
         children: [
-          const Icon(Icons.check_circle, color: AppColors.gain, size: 22),
+          Icon(Icons.check_circle, color: context.palette.gain, size: 22),
           const SizedBox(width: 12),
           Expanded(
             child: Column(
@@ -1309,32 +1309,32 @@ class _ResultCard extends StatelessWidget {
         Container(
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
-            color: AppColors.gain.withOpacity(0.08),
+            color: context.palette.gain.withOpacity(0.08),
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: AppColors.gain.withOpacity(0.3)),
+            border: Border.all(color: context.palette.gain.withOpacity(0.3)),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text('Import Complete',
+              Text('Import Complete',
                   style: TextStyle(
-                      fontWeight: FontWeight.w600, color: AppColors.gain)),
+                      fontWeight: FontWeight.w600, color: context.palette.gain)),
               const SizedBox(height: 10),
               if (memberName != null)
                 _Row('Member', '$memberName${pan != null ? ' ($pan)' : ''}'),
               _Row('Total parsed', '${result.total}'),
-              _Row('Inserted', '${result.inserted}', color: AppColors.gain),
+              _Row('Inserted', '${result.inserted}', color: context.palette.gain),
               if (result.duplicates > 0)
                 _Row('Duplicates skipped', '${result.duplicates}',
                     color: context.palette.textTertiary),
               if (result.errors.isNotEmpty) ...[
-                _Row('Errors', '${result.errors.length}', color: AppColors.loss),
+                _Row('Errors', '${result.errors.length}', color: context.palette.loss),
                 const SizedBox(height: 6),
                 ...result.errors
                     .take(5)
                     .map((e) => Text('• $e',
                         style:
-                            const TextStyle(fontSize: 11, color: AppColors.loss))),
+                            TextStyle(fontSize: 11, color: context.palette.loss))),
               ],
               if (result.isCAMS) ...[
                 const Divider(height: 16),
@@ -1348,7 +1348,7 @@ class _ResultCard extends StatelessWidget {
                   _Row(
                     'Portfolio summary',
                     result.portfolioSummaryMatch! ? 'Matched' : 'Mismatch',
-                    color: result.portfolioSummaryMatch! ? AppColors.gain : AppColors.loss,
+                    color: result.portfolioSummaryMatch! ? context.palette.gain : context.palette.loss,
                   ),
               ],
             ],
@@ -1546,13 +1546,13 @@ class _PortfolioValidationCard extends StatelessWidget {
       padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
         color: allMatch
-            ? AppColors.gain.withOpacity(0.08)
-            : AppColors.loss.withOpacity(0.06),
+            ? context.palette.gain.withOpacity(0.08)
+            : context.palette.loss.withOpacity(0.06),
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
           color: allMatch
-              ? AppColors.gain.withOpacity(0.3)
-              : AppColors.loss.withOpacity(0.3),
+              ? context.palette.gain.withOpacity(0.3)
+              : context.palette.loss.withOpacity(0.3),
         ),
       ),
       child: Column(
@@ -1564,7 +1564,7 @@ class _PortfolioValidationCard extends StatelessWidget {
               Icon(
                 allMatch ? Icons.verified : Icons.warning_amber_rounded,
                 size: 18,
-                color: allMatch ? AppColors.gain : AppColors.loss,
+                color: allMatch ? context.palette.gain : context.palette.loss,
               ),
               const SizedBox(width: 8),
               Expanded(
@@ -1575,7 +1575,7 @@ class _PortfolioValidationCard extends StatelessWidget {
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
                     fontSize: 13,
-                    color: allMatch ? AppColors.gain : AppColors.loss,
+                    color: allMatch ? context.palette.gain : context.palette.loss,
                   ),
                 ),
               ),
@@ -1587,7 +1587,7 @@ class _PortfolioValidationCard extends StatelessWidget {
             const SizedBox(height: 8),
             Text(
               '$matched fund(s) matched CAMS closing units',
-              style: TextStyle(fontSize: 11, color: AppColors.gain.withOpacity(0.8)),
+              style: TextStyle(fontSize: 11, color: context.palette.gain.withOpacity(0.8)),
             ),
           ],
 
@@ -1655,7 +1655,7 @@ class _PortfolioValidationCard extends StatelessWidget {
                               _UnitLabel(
                                 label: 'Diff',
                                 value: '$diffLabel units',
-                                color: AppColors.loss,
+                                color: context.palette.loss,
                               ),
                             ],
                           ),
@@ -1684,9 +1684,9 @@ class _PortfolioValidationCard extends StatelessWidget {
                               icon: const Icon(Icons.edit_note, size: 14),
                               label: const Text('Review Transactions'),
                               style: OutlinedButton.styleFrom(
-                                foregroundColor: AppColors.loss,
+                                foregroundColor: context.palette.loss,
                                 side: BorderSide(
-                                  color: AppColors.loss.withOpacity(0.4),
+                                  color: context.palette.loss.withOpacity(0.4),
                                 ),
                                 textStyle: const TextStyle(fontSize: 11),
                                 padding: const EdgeInsets.symmetric(
@@ -1813,7 +1813,7 @@ class _ReconciliationCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final color = recon.allMatch ? AppColors.gain : Colors.orange;
+    final color = recon.allMatch ? context.palette.gain : Colors.orange;
 
     return Container(
       padding: const EdgeInsets.all(14),
@@ -1852,7 +1852,7 @@ class _ReconciliationCard extends StatelessWidget {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Icon(Icons.error_outline, size: 14, color: AppColors.loss),
+                  Icon(Icons.error_outline, size: 14, color: context.palette.loss),
                   const SizedBox(width: 6),
                   Expanded(
                     child: Column(

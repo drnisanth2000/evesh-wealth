@@ -236,10 +236,10 @@ class _FundSubCardState extends ConsumerState<FundSubCard> {
                             _MiniPill(
                               label: 'Tgt ${_pctWithinClass.toStringAsFixed(0)}%',
                               color: isSelling
-                                  ? AppColors.loss
+                                  ? context.palette.loss
                                   : AppColors.primary,
                               bg: (isSelling
-                                      ? AppColors.loss
+                                      ? context.palette.loss
                                       : AppColors.primary)
                                   .withValues(alpha: 0.12),
                               bold: true,
@@ -283,11 +283,11 @@ class _FundSubCardState extends ConsumerState<FundSubCard> {
                   SliderTheme(
                     data: SliderTheme.of(context).copyWith(
                       activeTrackColor:
-                          isSelling ? AppColors.loss : AppColors.gain,
+                          isSelling ? context.palette.loss : context.palette.gain,
                       thumbColor:
-                          isSelling ? AppColors.loss : AppColors.gain,
+                          isSelling ? context.palette.loss : context.palette.gain,
                       overlayColor:
-                          (isSelling ? AppColors.loss : AppColors.gain)
+                          (isSelling ? context.palette.loss : context.palette.gain)
                               .withValues(alpha: 0.18),
                       trackHeight: 4,
                     ),
@@ -500,10 +500,10 @@ class _FundMiniBar extends StatelessWidget {
     final deficit = tgt > cur + 0.5;
     final excess = tgt < cur - 0.5;
     final overlayColor = deficit
-        ? AppColors.loss
+        ? context.palette.loss
         : excess
             ? AppColors.warning
-            : AppColors.gain;
+            : context.palette.gain;
     final lo = cur < tgt ? cur : tgt;
     final hi = cur > tgt ? cur : tgt;
 
@@ -524,7 +524,7 @@ class _FundMiniBar extends StatelessWidget {
             height: 5,
             width: w * (lo / 100),
             decoration: BoxDecoration(
-              color: AppColors.gain,
+              color: context.palette.gain,
               borderRadius: BorderRadius.circular(3),
             ),
           ),

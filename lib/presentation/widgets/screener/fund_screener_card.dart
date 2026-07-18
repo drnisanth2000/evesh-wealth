@@ -128,13 +128,13 @@ class FundScreenerCard extends StatelessWidget {
     final isRegular = fund.planType?.toLowerCase().contains('regular') ?? true;
 
     final chipColor = isDirect
-        ? AppColors.gain
+        ? context.palette.gain
         : isRegular
             ? AppColors.warning
             : context.palette.textTertiary;
 
     final chipBg = isDirect
-        ? AppColors.gain.withValues(alpha: 0.15)
+        ? context.palette.gain.withValues(alpha: 0.15)
         : isRegular
             ? AppColors.warning.withValues(alpha: 0.15)
             : context.palette.bgSurface;
@@ -204,7 +204,7 @@ class FundScreenerCard extends StatelessWidget {
     final text = v != null ? v.toStringAsFixed(2) : '—';
     Color valueColor = context.palette.textSecondary;
     if (v != null) {
-      valueColor = v >= 0 ? AppColors.gain : AppColors.loss;
+      valueColor = v >= 0 ? context.palette.gain : context.palette.loss;
     }
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -232,13 +232,13 @@ class FundScreenerCard extends StatelessWidget {
     if (risk != null) {
       final lower = risk.toLowerCase();
       if (lower.contains('very high')) {
-        color = AppColors.loss;
+        color = context.palette.loss;
       } else if (lower.contains('high')) {
         color = AppColors.warning;
       } else if (lower.contains('moderate')) {
         color = AppColors.info;
       } else if (lower.contains('low')) {
-        color = AppColors.gain;
+        color = context.palette.gain;
       }
     }
     return Column(
@@ -283,7 +283,7 @@ class FundScreenerCard extends StatelessWidget {
     Color valueColor = context.palette.textSecondary;
 
     if (isReturn && value != null) {
-      valueColor = value >= 0 ? AppColors.gain : AppColors.loss;
+      valueColor = value >= 0 ? context.palette.gain : context.palette.loss;
     }
 
     return Column(

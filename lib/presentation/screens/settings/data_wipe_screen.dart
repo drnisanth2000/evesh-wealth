@@ -41,7 +41,7 @@ class _DataWipeScreenState extends ConsumerState<DataWipeScreen> {
               loading: () =>
                   const Center(child: CircularProgressIndicator(color: AppColors.primary)),
               error: (e, _) => Center(child: Text('Error: $e',
-                  style: const TextStyle(color: AppColors.loss))),
+                  style: TextStyle(color: context.palette.loss))),
               data: (counts) => _buildPreview(context, counts),
             ),
     );
@@ -57,22 +57,22 @@ class _DataWipeScreenState extends ConsumerState<DataWipeScreen> {
         Container(
           padding: const EdgeInsets.all(14),
           decoration: BoxDecoration(
-            color: AppColors.loss.withValues(alpha: 0.08),
+            color: context.palette.loss.withValues(alpha: 0.08),
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: AppColors.loss.withValues(alpha: 0.3)),
+            border: Border.all(color: context.palette.loss.withValues(alpha: 0.3)),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
                 children: [
-                  Icon(Icons.warning_amber, color: AppColors.loss, size: 20),
+                  Icon(Icons.warning_amber, color: context.palette.loss, size: 20),
                   SizedBox(width: 8),
                   Text('Destructive Operation',
                       style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w700,
-                          color: AppColors.loss)),
+                          color: context.palette.loss)),
                 ],
               ),
               SizedBox(height: 8),
@@ -154,7 +154,7 @@ class _DataWipeScreenState extends ConsumerState<DataWipeScreen> {
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
-              borderSide: const BorderSide(color: AppColors.loss),
+              borderSide: BorderSide(color: context.palette.loss),
             ),
           ),
           onChanged: (_) => setState(() {}),
@@ -178,7 +178,7 @@ class _DataWipeScreenState extends ConsumerState<DataWipeScreen> {
                 : const Icon(Icons.delete_sweep),
             label: Text(_wiping ? 'Wiping data...' : 'Wipe All Data'),
             style: ElevatedButton.styleFrom(
-              backgroundColor: AppColors.loss,
+              backgroundColor: context.palette.loss,
               foregroundColor: Colors.white,
               disabledBackgroundColor: context.palette.bgSurface,
               shape: RoundedRectangleBorder(
@@ -196,8 +196,8 @@ class _DataWipeScreenState extends ConsumerState<DataWipeScreen> {
       children: [
         const SizedBox(height: 40),
         // Success icon
-        const Center(
-          child: Icon(Icons.check_circle, color: AppColors.gain, size: 64),
+        Center(
+          child: Icon(Icons.check_circle, color: context.palette.gain, size: 64),
         ),
         const SizedBox(height: 16),
         Center(
@@ -256,7 +256,7 @@ class _DataWipeScreenState extends ConsumerState<DataWipeScreen> {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Wipe failed: $e'),
-              backgroundColor: AppColors.loss),
+              backgroundColor: context.palette.loss),
         );
         setState(() => _wiping = false);
       }

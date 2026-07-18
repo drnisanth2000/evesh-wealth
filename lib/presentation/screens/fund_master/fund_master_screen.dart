@@ -333,7 +333,7 @@ class _FundCardState extends State<_FundCard> {
                               '1D: ${f.todayGain >= 0 ? '+' : ''}${f.todayGain.toINRCompact()} (${f.nav1dChangePct != null ? f.nav1dChangePct!.toReturnLabel() : '—'})',
                               style: TextStyle(
                                 fontSize: 11,
-                                color: f.todayGain >= 0 ? AppColors.gain : AppColors.loss,
+                                color: f.todayGain >= 0 ? context.palette.gain : context.palette.loss,
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
@@ -342,7 +342,7 @@ class _FundCardState extends State<_FundCard> {
                               '${isGain ? '+' : ''}${f.gain.toINRCompact()} (${f.gainPct.toReturnLabel()})',
                               style: TextStyle(
                                 fontSize: 12,
-                                color: isGain ? AppColors.gain : AppColors.loss,
+                                color: isGain ? context.palette.gain : context.palette.loss,
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
@@ -402,7 +402,7 @@ class _FundCardState extends State<_FundCard> {
                       _MetricCol(
                         label: 'Gain/Loss',
                         value: '${f.gain >= 0 ? '+' : ''}${f.gain.toINRCompact()}',
-                        valueColor: f.gain >= 0 ? AppColors.gain : AppColors.loss,
+                        valueColor: f.gain >= 0 ? context.palette.gain : context.palette.loss,
                       ),
                       _MetricCol(
                         label: 'Units',
@@ -416,14 +416,14 @@ class _FundCardState extends State<_FundCard> {
                         label: 'XIRR',
                         value: f.xirr != null ? f.xirr!.toReturnLabel() : '—',
                         valueColor: f.xirr != null
-                            ? (f.xirr! >= 0 ? AppColors.gain : AppColors.loss)
+                            ? (f.xirr! >= 0 ? context.palette.gain : context.palette.loss)
                             : null,
                       ),
                       _MetricCol(
                         label: 'CAGR',
                         value: f.cagr != null ? f.cagr!.toReturnLabel() : '—',
                         valueColor: f.cagr != null
-                            ? (f.cagr! >= 0 ? AppColors.gain : AppColors.loss)
+                            ? (f.cagr! >= 0 ? context.palette.gain : context.palette.loss)
                             : null,
                       ),
                     ],
@@ -484,20 +484,20 @@ class _FundCardState extends State<_FundCard> {
                           _MetricCol(
                             label: 'Gain',
                             value: '${hIsGain ? '+' : ''}${h.gain.toINRCompact()}',
-                            valueColor: hIsGain ? AppColors.gain : AppColors.loss,
+                            valueColor: hIsGain ? context.palette.gain : context.palette.loss,
                           ),
                           _MetricCol(
                             label: 'XIRR',
                             value: h.xirr != null ? h.xirr!.toReturnLabel() : '—',
                             valueColor: h.xirr != null
-                                ? (h.xirr! >= 0 ? AppColors.gain : AppColors.loss)
+                                ? (h.xirr! >= 0 ? context.palette.gain : context.palette.loss)
                                 : null,
                           ),
                           _MetricCol(
                             label: 'CAGR',
                             value: h.cagr != null ? h.cagr!.toReturnLabel() : '—',
                             valueColor: h.cagr != null
-                                ? (h.cagr! >= 0 ? AppColors.gain : AppColors.loss)
+                                ? (h.cagr! >= 0 ? context.palette.gain : context.palette.loss)
                                 : null,
                           ),
                         ],

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../core/extensions/string_extensions.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_palette.dart';
 import '../../providers/family_provider.dart';
@@ -38,7 +39,7 @@ class MemberSelector extends ConsumerWidget {
                 onTap: () => onSelected(null),
               ),
               ...members.map((m) => _MemberChip(
-                    label: m.displayName,
+                    label: m.displayName.toDisplayCase,
                     selected: selectedMemberId == m.id,
                     onTap: () => onSelected(m.id),
                   )),

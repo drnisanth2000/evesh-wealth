@@ -147,7 +147,7 @@ class _FundResultsList extends ConsumerWidget {
       error: (e, _) => Padding(
         padding: const EdgeInsets.all(16),
         child: Text('Error: $e',
-            style: const TextStyle(color: AppColors.loss, fontSize: 13)),
+            style: TextStyle(color: context.palette.loss, fontSize: 13)),
       ),
       data: (funds) {
         if (funds.isEmpty) {

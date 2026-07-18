@@ -56,9 +56,9 @@ class _FundOverlapItemState extends State<_FundOverlapItem> {
       };
 
   Color _subtitleColor(RiskLevel risk) => switch (risk) {
-        RiskLevel.high => AppColors.loss,
+        RiskLevel.high => context.palette.loss,
         RiskLevel.moderate => AppColors.warning,
-        RiskLevel.low => AppColors.gain,
+        RiskLevel.low => context.palette.gain,
       };
 
   @override

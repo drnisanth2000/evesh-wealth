@@ -122,7 +122,7 @@ class _ActionCenterScreenState extends ConsumerState<ActionCenterScreen>
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Icon(Icons.error_outline, color: AppColors.loss, size: 48),
+              Icon(Icons.error_outline, color: context.palette.loss, size: 48),
               const SizedBox(height: 12),
               Text('Error: $e',
                   textAlign: TextAlign.center,
@@ -242,7 +242,7 @@ class _PlanTab extends ConsumerWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Icon(Icons.error_outline, color: AppColors.loss, size: 48),
+            Icon(Icons.error_outline, color: context.palette.loss, size: 48),
             const SizedBox(height: 12),
             Text('Error: $e',
                 textAlign: TextAlign.center,
@@ -640,9 +640,9 @@ class _SimulateTabState extends ConsumerState<_SimulateTab> {
 
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
+          SnackBar(
             content: Text('Plan frozen successfully'),
-            backgroundColor: AppColors.gain,
+            backgroundColor: context.palette.gain,
           ),
         );
       }
@@ -651,7 +651,7 @@ class _SimulateTabState extends ConsumerState<_SimulateTab> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('Failed to freeze plan: $e'),
-            backgroundColor: AppColors.loss,
+            backgroundColor: context.palette.loss,
           ),
         );
       }
@@ -771,7 +771,7 @@ class _HealthSnapshotBanner extends StatelessWidget {
                       .where((a) => a.priority == ActionPriority.critical)
                       .length,
                   label: 'Critical',
-                  color: AppColors.loss,
+                  color: context.palette.loss,
                 ),
                 const SizedBox(width: 8),
                 _ActionCountChip(
@@ -916,13 +916,13 @@ class _SummaryFooter extends StatelessWidget {
             _SummaryKpi(
               label: 'Total Sell',
               value: plan.totalSellAmount.toINR(compact: true),
-              color: AppColors.loss,
+              color: context.palette.loss,
             ),
             Container(width: 1, height: 30, color: context.palette.bgDivider),
             _SummaryKpi(
               label: 'Total Buy',
               value: plan.totalBuyAmount.toINR(compact: true),
-              color: AppColors.gain,
+              color: context.palette.gain,
             ),
             Container(width: 1, height: 30, color: context.palette.bgDivider),
             _SummaryKpi(

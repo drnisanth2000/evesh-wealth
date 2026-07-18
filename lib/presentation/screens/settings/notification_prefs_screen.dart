@@ -206,9 +206,9 @@ class NotificationPrefsScreen extends ConsumerWidget {
       );
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
+          SnackBar(
             content: Text('Report generation started. Check your email shortly.'),
-            backgroundColor: AppColors.gain,
+            backgroundColor: context.palette.gain,
           ),
         );
       }
@@ -217,7 +217,7 @@ class NotificationPrefsScreen extends ConsumerWidget {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('Failed to generate report: $e'),
-            backgroundColor: AppColors.loss,
+            backgroundColor: context.palette.loss,
           ),
         );
       }

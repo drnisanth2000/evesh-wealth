@@ -57,15 +57,15 @@ class RebalanceScreen extends ConsumerWidget {
                 Container(
                   padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
-                    color: AppColors.gain.withOpacity(0.08),
+                    color: context.palette.gain.withOpacity(0.08),
                     borderRadius: BorderRadius.circular(12),
                     border: Border.all(
-                        color: AppColors.gain.withOpacity(0.3)),
+                        color: context.palette.gain.withOpacity(0.3)),
                   ),
                   child: Row(
                     children: [
-                      const Icon(Icons.check_circle_outline,
-                          color: AppColors.gain),
+                      Icon(Icons.check_circle_outline,
+                          color: context.palette.gain),
                       const SizedBox(width: 10),
                       Expanded(
                         child: Text(
@@ -94,7 +94,7 @@ class _BucketCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = [AppColors.gain, AppColors.info, AppColors.primary];
+    final colors = [context.palette.gain, AppColors.info, AppColors.primary];
     final color = colors[(bucket.bucketNumber - 1).clamp(0, 2)];
 
     return Container(
@@ -159,9 +159,9 @@ class _DriftRow extends StatelessWidget {
     final isOver = drift.driftPct > 0;
     final isWithin = drift.driftPct.abs() <= threshold;
     final driftColor = isWithin
-        ? AppColors.gain
+        ? context.palette.gain
         : isOver
-            ? AppColors.loss
+            ? context.palette.loss
             : AppColors.info;
     final trafficLight = isWithin
         ? Icons.circle
@@ -209,7 +209,7 @@ class _SuggestionTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isAdd = s.suggestedAction == RebalanceAction.add;
-    final color = isAdd ? AppColors.gain : AppColors.loss;
+    final color = isAdd ? context.palette.gain : context.palette.loss;
     final icon = isAdd
         ? Icons.add_circle_outline
         : Icons.remove_circle_outline;

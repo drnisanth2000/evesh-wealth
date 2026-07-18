@@ -82,8 +82,8 @@ class _SuggestionsScreenState extends ConsumerState<SuggestionsScreen> {
                 padding: const EdgeInsets.all(32),
                 child: Column(
                   children: [
-                    const Icon(Icons.error_outline,
-                        color: AppColors.loss, size: 40),
+                    Icon(Icons.error_outline,
+                        color: context.palette.loss, size: 40),
                     const SizedBox(height: 8),
                     Text('Error: $e',
                         textAlign: TextAlign.center,
@@ -164,7 +164,7 @@ class _AdviceBanner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final color = sipRecommended ? AppColors.primary : AppColors.gain;
+    final color = sipRecommended ? AppColors.primary : context.palette.gain;
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
@@ -320,8 +320,8 @@ class _EmptyState extends StatelessWidget {
         padding: const EdgeInsets.all(32),
         child: Column(
           children: [
-            const Icon(Icons.check_circle_outline,
-                color: AppColors.gain, size: 48),
+            Icon(Icons.check_circle_outline,
+                color: context.palette.gain, size: 48),
             const SizedBox(height: 12),
             Text(
               reason,

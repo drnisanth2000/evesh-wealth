@@ -108,7 +108,7 @@ class _PerformanceTab extends ConsumerWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Icon(Icons.error_outline, color: AppColors.loss, size: 48),
+            Icon(Icons.error_outline, color: context.palette.loss, size: 48),
             const SizedBox(height: 12),
             Text('$e', style: TextStyle(color: context.palette.textSecondary)),
             const SizedBox(height: 8),
@@ -179,7 +179,7 @@ class _PerformanceTab extends ConsumerWidget {
                               ? portfolio.xirr!.toPercent()
                               : '—',
                           valueColor: portfolio.xirr != null && portfolio.xirr! > 0
-                              ? AppColors.gain
+                              ? context.palette.gain
                               : context.palette.textSecondary,
                           tooltip: 'Annualised return accounting for investment timing',
                         ),
@@ -190,8 +190,8 @@ class _PerformanceTab extends ConsumerWidget {
                           label: 'Total Gain',
                           value: portfolio.gainPct.toReturnLabel(),
                           valueColor: portfolio.totalGain >= 0
-                              ? AppColors.gain
-                              : AppColors.loss,
+                              ? context.palette.gain
+                              : context.palette.loss,
                         ),
                       ),
                       const SizedBox(width: 12),
@@ -220,7 +220,7 @@ class _PerformanceTab extends ConsumerWidget {
                     metric: best.cagr != null
                         ? 'CAGR ${best.cagr!.toPercent()}'
                         : best.gainPct.toReturnLabel(),
-                    color: AppColors.gain,
+                    color: context.palette.gain,
                   ),
                 ),
                 const SizedBox(width: 12),
@@ -231,7 +231,7 @@ class _PerformanceTab extends ConsumerWidget {
                     metric: worst.cagr != null
                         ? 'CAGR ${worst.cagr!.toPercent()}'
                         : worst.gainPct.toReturnLabel(),
-                    color: worst.gainPct < 0 ? AppColors.loss : AppColors.warning,
+                    color: worst.gainPct < 0 ? context.palette.loss : AppColors.warning,
                   ),
                 ),
               ],
@@ -389,7 +389,7 @@ class _FundRiskCard extends ConsumerWidget {
                           ? a.sharpe!.toStringAsFixed(2)
                           : '—',
                       a.sharpe != null && a.sharpe! > 1
-                          ? AppColors.gain
+                          ? context.palette.gain
                           : context.palette.textSecondary,
                     ),
                     const SizedBox(width: 20),
@@ -399,7 +399,7 @@ class _FundRiskCard extends ConsumerWidget {
                           ? a.sortino!.toStringAsFixed(2)
                           : '—',
                       a.sortino != null && a.sortino! > 1
-                          ? AppColors.gain
+                          ? context.palette.gain
                           : context.palette.textSecondary,
                     ),
                     const SizedBox(width: 20),
@@ -408,7 +408,7 @@ class _FundRiskCard extends ConsumerWidget {
                       a.maxDrawdown != null
                           ? (a.maxDrawdown! * 100).toPercent()
                           : '—',
-                      AppColors.loss,
+                      context.palette.loss,
                     ),
                     const SizedBox(width: 20),
                     _RiskStat(
@@ -545,7 +545,7 @@ class _FundPerformanceRow extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 11,
                       fontWeight: FontWeight.w500,
-                      color: isGain ? AppColors.gain : AppColors.loss,
+                      color: isGain ? context.palette.gain : context.palette.loss,
                     ),
                   ),
                   if (cagr != null) ...[
@@ -655,7 +655,7 @@ class _OverlapTab extends ConsumerWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Icon(Icons.error_outline, color: AppColors.loss, size: 48),
+            Icon(Icons.error_outline, color: context.palette.loss, size: 48),
             const SizedBox(height: 12),
             Text(
               '$e',

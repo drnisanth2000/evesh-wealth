@@ -56,7 +56,7 @@ class DriftAlertCard extends StatelessWidget {
         color: AppColors.alertLowBg,
         borderRadius: BorderRadius.circular(10),
       ),
-      child: const Row(
+      child: Row(
         children: [
           Icon(Icons.check_circle_outline,
               color: AppColors.gain, size: 22),
@@ -84,7 +84,7 @@ class DriftAlertCard extends StatelessWidget {
         isCritical ? Icons.error_outline : Icons.info_outline;
 
     final driftPositive = alert.driftPct > 0;
-    final driftColor = driftPositive ? AppColors.loss : AppColors.gain;
+    final driftColor = driftPositive ? context.palette.loss : context.palette.gain;
     final driftSign = driftPositive ? '+' : '';
 
     return Padding(
